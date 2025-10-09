@@ -15,17 +15,26 @@ set.
 
 This tool expects the [Reference Policy Set](https://help.sonatype.com/en/reference-policies.html) to be in use, but that is not mandatory.
 
+- [Installation](#installation)
 - [Usage](#usage)
 - [Development](#development)
 - [The Fine Print](#the-fine-print)
 
+## Installation
+
+Obtain the binary for your Operating System and Architecture from the [GitHub Releases page](https://github.com/sonatype-nexus-community/nexus-repo-asset-lister/releases).
+
 ## Usage
 
-Currently this works for NPM format only.
+Set your Sonatype Nexus Repository credentials in two environment variables:
+- `NEXUS_USERNAME`
+- `NEXUS_PASSWORD`
 
 ```bash
-./test-npm.sh
+./nxfw-policy-tester
 ```
+
+Follow the prompts!
 
 ## Development
 
@@ -44,8 +53,8 @@ This project is part of the [Sonatype Nexus Community](https://github.com/sonaty
 Last but not least of all - have fun!
 
 <!-- Links Section -->
-[shield_gh-workflow-test]: https://img.shields.io/github/actions/workflow/status/sonatype-nexus-community/community-project-template/test.yml?branch=main&logo=GitHub&logoColor=white "build"
-[shield_license]: https://img.shields.io/github/license/sonatype-nexus-community/community-project-template?logo=open%20source%20initiative&logoColor=white "license"
+[shield_gh-workflow-test]: https://img.shields.io/github/actions/workflow/status/sonatype-nexus-community/nxfw-policy-tester/build.yml?branch=main&logo=GitHub&logoColor=white "build"
+[shield_license]: https://img.shields.io/github/license/sonatype-nexus-community/nxfw-policy-tester?logo=open%20source%20initiative&logoColor=white "license"
 
-[link_gh-workflow-test]: https://github.com/sonatype-nexus-community/community-project-template/actions/workflows/test.yml?query=branch%3Amain
-[license_file]: https://github.com/sonatype-nexus-community/community-project-template/blob/main/LICENSE
+[link_gh-workflow-test]: https://github.com/sonatype-nexus-community/nxfw-policy-tester/actions/workflows/build.yml?query=branch%3Amain
+[license_file]: https://github.com/sonatype-nexus-community/nxfw-policy-tester/blob/main/LICENSE
