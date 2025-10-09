@@ -1,4 +1,4 @@
-# YOUR PROJECT NAME HERE
+# Sonatype Repository Firewall Policy Test Suite
 
 <!-- Badges Section -->
 [![shield_gh-workflow-test]][link_gh-workflow-test]
@@ -7,7 +7,13 @@
 
 ---
 
-Introduce your project here. A short summary about what its purpose and scope is.
+This is a simple test suite that will attempt to pull known *bad* packages into Proxy repositores in Sonatype Nexus Repository 
+to allow customers to validate that Repository Firewall policies are operating as they expect.
+
+This tool does not know the specific outcomes, as each Customer will have differing [Policy Actions](https://help.sonatype.com/en/policy-actions.html)
+set.
+
+This tool expects the [Reference Policy Set](https://help.sonatype.com/en/reference-policies.html) to be in use, but that is not mandatory.
 
 - [Usage](#usage)
 - [Development](#development)
@@ -15,12 +21,11 @@ Introduce your project here. A short summary about what its purpose and scope is
 
 ## Usage
 
-Use this section (and any additional sub-sections) to explain how to use this project.
+Currently this works for NPM format only.
 
-Include:
-- Installation
-- Configuration
-- Execution
+```bash
+./test-npm.sh
+```
 
 ## Development
 
