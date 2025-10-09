@@ -21,9 +21,16 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"runtime"
 	"strings"
 
 	v3 "github.com/sonatype-nexus-community/nexus-repo-api-client-go/v3"
+)
+
+var (
+	currentRuntime string = runtime.GOOS
+	commit                = "unknown"
+	version               = "dev"
 )
 
 // Color codes
@@ -356,6 +363,22 @@ func displayResults(results []CheckResult, format PackageFormat) {
 }
 
 func main() {
+	// Output Banner
+	println(strings.Repeat("⬢⬡", 42))
+	println("")
+	println("	███████╗ ██████╗ ███╗   ██╗ █████╗ ████████╗██╗   ██╗██████╗ ███████╗  ")
+	println(" 	██╔════╝██╔═══██╗████╗  ██║██╔══██╗╚══██╔══╝╚██╗ ██╔╝██╔══██╗██╔════╝  ")
+	println("	███████╗██║   ██║██╔██╗ ██║███████║   ██║    ╚████╔╝ ██████╔╝█████╗    ")
+	println(" 	╚════██║██║   ██║██║╚██╗██║██╔══██║   ██║     ╚██╔╝  ██╔═══╝ ██╔══╝    ")
+	println(" 	███████║╚██████╔╝██║ ╚████║██║  ██║   ██║      ██║   ██║     ███████╗  ")
+	println(" 	╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚═╝     ╚══════╝  ")
+	println("")
+	println(fmt.Sprintf("	Running on:		%s/%s", currentRuntime, runtime.GOARCH))
+	println(fmt.Sprintf("	Version: 		%s (%s)", version, commit))
+	println("")
+	println(strings.Repeat("⬢⬡", 42))
+	println("")
+
 	// Get credentials from environment variables
 	username := os.Getenv("NEXUS_USERNAME")
 	password := os.Getenv("NEXUS_PASSWORD")
