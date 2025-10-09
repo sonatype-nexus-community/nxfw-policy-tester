@@ -22,9 +22,11 @@ import (
 	"net/http"
 	"os"
 	"runtime"
+	"strconv"
 	"strings"
 
 	v3 "github.com/sonatype-nexus-community/nexus-repo-api-client-go/v3"
+	"github.com/sonatype-nexus-community/nxfw-policy-tester/formats"
 )
 
 var (
@@ -44,113 +46,14 @@ const (
 	ColorReset   = "\033[0m"
 )
 
-// SecurityLevel represents the security classification of a package
-type SecurityLevel string
-
-const (
-	SecurityCritical SecurityLevel = "Security-Critical"
-	SecurityHigh     SecurityLevel = "Security-High"
-	SecurityMedium   SecurityLevel = "Security-Medium"
-)
-
-// Package represents a package to be checked
-type Package struct {
-	Name          string
-	Version       string
-	SecurityLevel SecurityLevel
-	Extension     string
-}
-
-// PackageFormat represents a package format handler
-type PackageFormat interface {
-	GetName() string
-	GetDisplayName() string
-	GetPackages() []Package
-	ConstructURL(nexusURL, repoName string, pkg Package) string
-	FormatPackageName(pkg Package) string
-}
-
-// NPMFormat implements PackageFormat for NPM
-type NPMFormat struct{}
-
-func (n NPMFormat) GetName() string {
-	return "npm"
-}
-
-func (n NPMFormat) GetDisplayName() string {
-	return "NPM"
-}
-
-func (n NPMFormat) GetPackages() []Package {
-	return []Package{
-		{Name: "bson", Version: "1.0.9", SecurityLevel: SecurityCritical, Extension: "tgz"},
-		{Name: "braces", Version: "1.8.5", SecurityLevel: SecurityHigh, Extension: "tgz"},
-		{Name: "cookie", Version: "0.3.1", SecurityLevel: SecurityMedium, Extension: "tgz"},
-	}
-}
-
-func (n NPMFormat) ConstructURL(nexusURL, repoName string, pkg Package) string {
-	return fmt.Sprintf("%s/repository/%s/%s/-/%s-%s.%s",
-		nexusURL, repoName, pkg.Name, pkg.Name, pkg.Version, pkg.Extension)
-}
-
-func (n NPMFormat) FormatPackageName(pkg Package) string {
-	return fmt.Sprintf("%s@%s", pkg.Name, pkg.Version)
-}
-
-// MavenFormat implements PackageFormat for Maven
-type MavenFormat struct{}
-
-func (m MavenFormat) GetName() string {
-	return "maven2"
-}
-
-func (m MavenFormat) GetDisplayName() string {
-	return "Maven"
-}
-
-func (m MavenFormat) GetPackages() []Package {
-	return []Package{
-		{Name: "com.amazonaws/aws-android-sdk-core", Version: "2.75.0", SecurityLevel: SecurityCritical, Extension: "aar"},
-		{Name: "org.jsoup/jsoup", Version: "1.13.1", SecurityLevel: SecurityHigh, Extension: "jar"},
-		{Name: "ant/ant", Version: "1.6.5", SecurityLevel: SecurityMedium, Extension: "jar"},
-	}
-}
-
-func (m MavenFormat) ConstructURL(nexusURL, repoName string, pkg Package) string {
-	parts := strings.Split(pkg.Name, "/")
-	if len(parts) != 2 {
-		return ""
-	}
-	group := parts[0]
-	artifact := parts[1]
-
-	// Convert group dots to slashes (e.g., com.amazonaws -> com/amazonaws)
-	groupPath := strings.ReplaceAll(group, ".", "/")
-
-	return fmt.Sprintf("%s/repository/%s/%s/%s/%s/%s-%s.%s",
-		nexusURL, repoName, groupPath, artifact, pkg.Version, artifact, pkg.Version, pkg.Extension)
-}
-
-func (m MavenFormat) FormatPackageName(pkg Package) string {
-	return fmt.Sprintf("%s@%s (.%s)", pkg.Name, pkg.Version, pkg.Extension)
-}
-
-// CheckResult represents the result of checking a package
-type CheckResult struct {
-	Package   Package
-	Available bool
-	HTTPCode  int
-}
-
 // getSecurityColor returns the color code for a security level
-func getSecurityColor(level SecurityLevel) string {
+func getSecurityColor(level formats.SecurityLevel) string {
 	switch level {
-	case SecurityCritical:
+	case formats.SecurityCritical:
 		return ColorRed
-	case SecurityHigh:
+	case formats.SecurityHigh:
 		return ColorMagenta
-	case SecurityMedium:
+	case formats.SecurityMedium:
 		return ColorYellow
 	default:
 		return ColorReset
@@ -166,10 +69,11 @@ func readInput(prompt string) string {
 }
 
 // selectFormat prompts the user to select a package format
-func selectFormat() PackageFormat {
-	formats := []PackageFormat{
-		NPMFormat{},
-		MavenFormat{},
+func selectFormat() formats.PackageFormat {
+	formats := []formats.PackageFormat{
+		formats.MavenFormat{},
+		formats.NPMFormat{},
+		formats.PyPIFormat{},
 	}
 
 	fmt.Printf("%sSelect package format:%s\n", ColorYellow, ColorReset)
@@ -178,17 +82,18 @@ func selectFormat() PackageFormat {
 	}
 
 	choice := readInput("Enter choice: ")
-
-	switch choice {
-	case "1":
-		return formats[0]
-	case "2":
-		return formats[1]
-	default:
-		fmt.Printf("%sError: Invalid choice. Please enter 1 or 2.%s\n", ColorRed, ColorReset)
+	choiceI, err := strconv.Atoi(choice)
+	if err != nil {
+		fmt.Printf("%sError: Invalid choice.%s\n", ColorRed, ColorReset)
 		os.Exit(1)
 	}
-	return nil
+
+	if choiceI > len(formats) {
+		fmt.Printf("%sError: Invalid choice.%s\n", ColorRed, ColorReset)
+		os.Exit(1)
+	}
+
+	return formats[(choiceI - 1)]
 }
 
 // selectRepository prompts the user to select a repository from available proxies
@@ -253,7 +158,7 @@ func checkPackage(url, username, password string) (int, error) {
 }
 
 // displaySummary displays the configuration summary
-func displaySummary(nexusURL, repoName string, format PackageFormat) {
+func displaySummary(nexusURL, repoName string, format formats.PackageFormat) {
 	fmt.Printf("\n%s=== Configuration Summary ===%s\n", ColorYellow, ColorReset)
 	fmt.Printf("Nexus URL: %s\n", nexusURL)
 	fmt.Printf("Format: %s\n", format.GetDisplayName())
@@ -273,9 +178,9 @@ func displaySummary(nexusURL, repoName string, format PackageFormat) {
 }
 
 // checkPackages checks all packages and returns results
-func checkPackages(nexusURL, repoName, username, password string, format PackageFormat) []CheckResult {
+func checkPackages(nexusURL, repoName, username, password string, format formats.PackageFormat) []formats.CheckResult {
 	packages := format.GetPackages()
-	results := make([]CheckResult, 0, len(packages))
+	results := make([]formats.CheckResult, 0, len(packages))
 
 	fmt.Printf("\n%s=== Checking Package Availability ===%s\n\n", ColorYellow, ColorReset)
 
@@ -290,7 +195,7 @@ func checkPackages(nexusURL, repoName, username, password string, format Package
 		url := format.ConstructURL(nexusURL, repoName, pkg)
 		httpCode, err := checkPackage(url, username, password)
 
-		result := CheckResult{
+		result := formats.CheckResult{
 			Package:  pkg,
 			HTTPCode: httpCode,
 		}
@@ -327,7 +232,7 @@ func checkPackages(nexusURL, repoName, username, password string, format Package
 }
 
 // displayResults displays the check results summary
-func displayResults(results []CheckResult, format PackageFormat) {
+func displayResults(results []formats.CheckResult, format formats.PackageFormat) {
 	successCount := 0
 	failCount := 0
 
