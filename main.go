@@ -71,8 +71,10 @@ func readInput(prompt string) string {
 // selectFormat prompts the user to select a package format
 func selectFormat() formats.PackageFormat {
 	formats := []formats.PackageFormat{
+		// formats.CondaFormat{},
 		formats.MavenFormat{},
 		formats.NPMFormat{},
+		formats.NuGetFormat{},
 		formats.PyPIFormat{},
 	}
 
