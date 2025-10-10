@@ -37,6 +37,7 @@ func (p PyPIFormat) GetPackages() []Package {
 		{Name: "Django", Version: "1.6", SecurityLevel: SecurityCritical, Extension: "whl", Qualifier: "py2.py3-none-any"},
 		{Name: "Flask", Version: "0.12", SecurityLevel: SecurityHigh, Extension: "whl", Qualifier: "py2.py3-none-any"},
 		{Name: "Click", Version: "7.0", SecurityLevel: SecurityMedium, Extension: "whl", Qualifier: "py2.py3-none-any"},
+		{Name: "requests-toolbelt", Version: "1.0.0", Extension: "whl", Qualifier: "py2.py3-none-any"},
 		{Name: "python-policy-demo", Version: "1.1.0", SecurityLevel: SecurityMalicious, Extension: "tar.gz", Qualifier: ""},
 		{Name: "python-policy-demo", Version: "1.2.0", SecurityLevel: IntegritySuspicious, Extension: "tar.gz", Qualifier: ""},
 		{Name: "python-policy-demo", Version: "1.3.0", SecurityLevel: IntegrityPending, Extension: "tar.gz", Qualifier: ""},
