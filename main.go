@@ -73,7 +73,7 @@ func selectFormat() formats.PackageFormat {
 	formats := []formats.PackageFormat{
 		formats.CargoFormat{},
 		formats.CranFormat{},
-		// formats.CondaFormat{},
+		formats.CondaFormat{},
 		formats.MavenFormat{},
 		formats.NPMFormat{},
 		formats.NuGetFormat{},

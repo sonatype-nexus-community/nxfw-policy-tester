@@ -42,38 +42,42 @@ Follow the prompts - you'll need the URL to your Sonatype Nexus Repository insta
 
 ## Tests Available
 
-| Format       | Reference Policy      | Available |
-| ------------ | --------------------- | --------- |
-| Cargo (Rust) | `Security-Critical`   | ✅        |
-| Cargo (Rust) | `Security-High`       | ✅        |
-| Cargo (Rust) | `Security-Medium`     | ❌        |
-| Cargo (Rust) | `Security-Low`        | ❌        |
-| CRAN (R)     | `Security-Critical`   | ❌        |
-| CRAN (R)     | `Security-High`       | ✅        |
-| CRAN (R)     | `Security-Medium`     | ✅        |
-| CRAN (R)     | `Security-Low`        | ❌        |
-| Maven        | `Security-Critical`   | ✅        |
-| Maven        | `Security-High`       | ✅        |
-| Maven        | `Security-Medium`     | ✅        |
-| Maven        | `Security-Low`        | ✅        |
-| Maven        | `Security-Malicious`^ | ✅        |
-| Maven        | `Integrity-Rating`±   | ✅        |
-| NPM          | `Security-Critical`   | ✅        |
-| NPM          | `Security-High`       | ✅        |
-| NPM          | `Security-Medium`     | ✅        |
-| NPM          | `Security-Low`        | ✅        |
-| NPM          | `Security-Malicious`^ | ✅        |
-| NPM          | `Integrity-Rating`±   | ✅        |
-| Nuget        | `Security-Critical`   | ✅        |
-| Nuget        | `Security-High`       | ✅        |
-| Nuget        | `Security-Medium`     | ✅        |
-| Nuget        | `Security-Low`        | ✅        |
-| PyPi         | `Security-Critical`   | ✅        |
-| PyPi         | `Security-High`       | ✅        |
-| PyPi         | `Security-Medium`     | ✅        |
-| PyPi         | `Security-Low`        | ❌        |
-| PyPi         | `Security-Malicious`^ | ✅        |
-| PyPi         | `Integrity-Rating`±   | ✅        |
+| Format              | Reference Policy      | Available |
+| ------------------- | --------------------- | --------- |
+| Cargo (Rust)        | `Security-Critical`   | ✅        |
+| Cargo (Rust)        | `Security-High`       | ✅        |
+| Cargo (Rust)        | `Security-Medium`     | ❌        |
+| Cargo (Rust)        | `Security-Low`        | ❌        |
+| Conda (conda-forge) | `Security-Critical`   | ✅        |
+| Conda (conda-forge) | `Security-High`       | ✅        |
+| Conda (conda-forge) | `Security-Medium`     | ❌        |
+| Conda (conda-forge) | `Security-Low`        | ✅        |
+| CRAN (R)            | `Security-Critical`   | ❌        |
+| CRAN (R)            | `Security-High`       | ✅        |
+| CRAN (R)            | `Security-Medium`     | ✅        |
+| CRAN (R)            | `Security-Low`        | ❌        |
+| Maven               | `Security-Critical`   | ✅        |
+| Maven               | `Security-High`       | ✅        |
+| Maven               | `Security-Medium`     | ✅        |
+| Maven               | `Security-Low`        | ✅        |
+| Maven               | `Security-Malicious`^ | ✅        |
+| Maven               | `Integrity-Rating`±   | ✅        |
+| NPM                 | `Security-Critical`   | ✅        |
+| NPM                 | `Security-High`       | ✅        |
+| NPM                 | `Security-Medium`     | ✅        |
+| NPM                 | `Security-Low`        | ✅        |
+| NPM                 | `Security-Malicious`^ | ✅        |
+| NPM                 | `Integrity-Rating`±   | ✅        |
+| Nuget               | `Security-Critical`   | ✅        |
+| Nuget               | `Security-High`       | ✅        |
+| Nuget               | `Security-Medium`     | ✅        |
+| Nuget               | `Security-Low`        | ✅        |
+| PyPi                | `Security-Critical`   | ✅        |
+| PyPi                | `Security-High`       | ✅        |
+| PyPi                | `Security-Medium`     | ✅        |
+| PyPi                | `Security-Low`        | ❌        |
+| PyPi                | `Security-Malicious`^ | ✅        |
+| PyPi                | `Integrity-Rating`±   | ✅        |
 
 > NOTES:
 >
