@@ -16,7 +16,10 @@
 
 package formats
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // PyPIFormat implements PackageFormat for PyPI
 type PyPIFormat struct{}
@@ -31,22 +34,27 @@ func (p PyPIFormat) GetDisplayName() string {
 
 func (p PyPIFormat) GetPackages() []Package {
 	return []Package{
-		{Name: "django", Version: "1.6", SecurityLevel: SecurityCritical, Extension: "whl", Qualifier: "py2.py3-none-any"},
-		{Name: "flask", Version: "0.12", SecurityLevel: SecurityHigh, Extension: "whl", Qualifier: "py2.py3-none-any"},
-		{Name: "click", Version: "7.0", SecurityLevel: SecurityMedium, Extension: "whl", Qualifier: "py2.py3-none-any"},
+		{Name: "Django", Version: "1.6", SecurityLevel: SecurityCritical, Extension: "whl", Qualifier: "py2.py3-none-any"},
+		{Name: "Flask", Version: "0.12", SecurityLevel: SecurityHigh, Extension: "whl", Qualifier: "py2.py3-none-any"},
+		{Name: "Click", Version: "7.0", SecurityLevel: SecurityMedium, Extension: "whl", Qualifier: "py2.py3-none-any"},
 	}
 }
 
 func (p PyPIFormat) ConstructURL(nexusURL, repoName string, pkg Package) string {
-	// PyPI wheel format: package-version-qualifier.whl
-	// Example: django-1.6-py2.py3-none-any.whl
-	// Path: /repository/pypi-proxy/packages/django/1.6/django-1.6-py2.py3-none-any.whl
-	//       /repository/pupy-proxy/packages/filelock/3.12.2/filelock-3.12.2-py3-none-any.whl
+	// PyPI uses the "simple" API format in Nexus
+	// Format: /repository/{repo}/simple/{package}/{package}-{version}-{qualifier}.{extension}
+	// Example: /repository/pypi-proxy/simple/django/django-1.6-py2.py3-none-any.whl
+
+	// /repository/pupy-proxy/packages/click/6.6/click-6.6-py2.py3-none-any.whl
+
+	// Normalize package name (PyPI uses lowercase with hyphens replaced)
+	normalizedName := strings.ToLower(pkg.Name)
+	normalizedName = strings.ReplaceAll(normalizedName, "_", "-")
 
 	filename := fmt.Sprintf("%s-%s-%s.%s", pkg.Name, pkg.Version, pkg.Qualifier, pkg.Extension)
 
 	return fmt.Sprintf("%s/repository/%s/packages/%s/%s/%s",
-		nexusURL, repoName, pkg.Name, pkg.Version, filename)
+		nexusURL, repoName, normalizedName, pkg.Version, filename)
 }
 
 func (p PyPIFormat) FormatPackageName(pkg Package) string {

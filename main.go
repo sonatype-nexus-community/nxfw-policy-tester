@@ -136,7 +136,7 @@ func selectRepository(apiClient *v3.APIClient, ctx context.Context, formatName s
 // checkPackage checks if a package is available
 func checkPackage(url, username, password string) (int, error) {
 	client := &http.Client{}
-	req, err := http.NewRequest("HEAD", url, nil)
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return 0, err
 	}
