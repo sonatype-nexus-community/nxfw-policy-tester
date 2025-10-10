@@ -37,6 +37,9 @@ func (p PyPIFormat) GetPackages() []Package {
 		{Name: "Django", Version: "1.6", SecurityLevel: SecurityCritical, Extension: "whl", Qualifier: "py2.py3-none-any"},
 		{Name: "Flask", Version: "0.12", SecurityLevel: SecurityHigh, Extension: "whl", Qualifier: "py2.py3-none-any"},
 		{Name: "Click", Version: "7.0", SecurityLevel: SecurityMedium, Extension: "whl", Qualifier: "py2.py3-none-any"},
+		{Name: "python-policy-demo", Version: "1.1.0", SecurityLevel: SecurityMalicious, Extension: "tar.gz", Qualifier: ""},
+		{Name: "python-policy-demo", Version: "1.2.0", SecurityLevel: IntegritySuspicious, Extension: "tar.gz", Qualifier: ""},
+		{Name: "python-policy-demo", Version: "1.3.0", SecurityLevel: IntegrityPending, Extension: "tar.gz", Qualifier: ""},
 	}
 }
 
@@ -52,6 +55,9 @@ func (p PyPIFormat) ConstructURL(nexusURL, repoName string, pkg Package) string 
 	normalizedName = strings.ReplaceAll(normalizedName, "_", "-")
 
 	filename := fmt.Sprintf("%s-%s-%s.%s", pkg.Name, pkg.Version, pkg.Qualifier, pkg.Extension)
+	if pkg.Extension == "tar.gz" {
+		filename = fmt.Sprintf("%s-%s.%s", pkg.Name, pkg.Version, pkg.Extension)
+	}
 
 	return fmt.Sprintf("%s/repository/%s/packages/%s/%s/%s",
 		nexusURL, repoName, normalizedName, pkg.Version, filename)
