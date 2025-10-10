@@ -46,6 +46,8 @@ Follow the prompts - you'll need the URL to your Sonatype Nexus Repository insta
 | ------------ | --------------------- | --------- |
 | Cargo (Rust) | `Security-Critical`   | ✅        |
 | Cargo (Rust) | `Security-High`       | ✅        |
+| Cargo (Rust) | `Security-Medium`     | ❌        |
+| Cargo (Rust) | `Security-Low`        | ❌        |
 | CRAN (R)     | `Security-Critical`   | ❌        |
 | CRAN (R)     | `Security-High`       | ✅        |
 | CRAN (R)     | `Security-Medium`     | ✅        |
