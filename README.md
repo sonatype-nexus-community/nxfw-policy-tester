@@ -25,7 +25,7 @@ This tool expects the [Reference Policy Set](https://help.sonatype.com/en/refere
 
 ## Installation
 
-Obtain the binary for your Operating System and Architecture from the [GitHub Releases page](https://github.com/sonatype-nexus-community/nexus-repo-asset-lister/releases).
+Obtain the binary for your Operating System and Architecture from the [GitHub Releases page](https://github.com/sonatype-nexus-community/nxfw-policy-tester/releases).
 
 ## Usage
 
