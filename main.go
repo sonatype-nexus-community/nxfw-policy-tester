@@ -72,6 +72,7 @@ func readInput(prompt string) string {
 func selectFormat() formats.PackageFormat {
 	formats := []formats.PackageFormat{
 		formats.CargoFormat{},
+		formats.CranFormat{},
 		// formats.CondaFormat{},
 		formats.MavenFormat{},
 		formats.NPMFormat{},
