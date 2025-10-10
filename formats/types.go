@@ -20,10 +20,13 @@ package formats
 type SecurityLevel string
 
 const (
-	SecurityCritical SecurityLevel = "Security-Critical"
-	SecurityHigh     SecurityLevel = "Security-High"
-	SecurityMedium   SecurityLevel = "Security-Medium"
-	SecurityLow      SecurityLevel = "Security-Low"
+	SecurityCritical    SecurityLevel = "Security-Critical"
+	SecurityHigh        SecurityLevel = "Security-High"
+	SecurityMedium      SecurityLevel = "Security-Medium"
+	SecurityLow         SecurityLevel = "Security-Low"
+	IntegrityPending    SecurityLevel = "Integrity-Pending"
+	IntegritySuspicious SecurityLevel = "Integrity-Suspicious"
+	SecurityMalicious   SecurityLevel = "Security-Malicious"
 )
 
 // Package represents a package to be checked

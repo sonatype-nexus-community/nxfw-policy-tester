@@ -16,7 +16,11 @@
 
 package formats
 
-import "fmt"
+import (
+	"fmt"
+	"net/url"
+	"strings"
+)
 
 // NPMFormat implements PackageFormat for NPM
 type NPMFormat struct{}
@@ -35,12 +39,21 @@ func (n NPMFormat) GetPackages() []Package {
 		{Name: "braces", Version: "1.8.5", SecurityLevel: SecurityHigh, Extension: "tgz"},
 		{Name: "cookie", Version: "0.3.1", SecurityLevel: SecurityMedium, Extension: "tgz"},
 		{Name: "react-dom", Version: "18.3.1", SecurityLevel: SecurityLow, Extension: "tgz"},
+		{Name: "@sonatype/policy-demo", Version: "2.3.0", SecurityLevel: IntegrityPending, Extension: "tgz"},
+		{Name: "@sonatype/policy-demo", Version: "2.2.0", SecurityLevel: IntegritySuspicious, Extension: "tgz"},
+		{Name: "@sonatype/policy-demo", Version: "2.1.0", SecurityLevel: SecurityMalicious, Extension: "tgz"},
 	}
 }
 
 func (n NPMFormat) ConstructURL(nexusURL, repoName string, pkg Package) string {
-	return fmt.Sprintf("%s/repository/%s/%s/-/%s-%s.%s",
-		nexusURL, repoName, pkg.Name, pkg.Name, pkg.Version, pkg.Extension)
+	filename := fmt.Sprintf("%s-%s.%s", pkg.Name, pkg.Version, pkg.Extension)
+	if strings.Contains(pkg.Name, "/") {
+		nameParts := strings.Split(pkg.Name, "/")
+		filename = fmt.Sprintf("%s-%s.%s", nameParts[1], pkg.Version, pkg.Extension)
+	}
+
+	return fmt.Sprintf("%s/repository/%s/%s/-/%s",
+		nexusURL, repoName, url.QueryEscape(pkg.Name), filename)
 }
 
 func (n NPMFormat) FormatPackageName(pkg Package) string {

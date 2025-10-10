@@ -49,7 +49,7 @@ const (
 // getSecurityColor returns the color code for a security level
 func getSecurityColor(level formats.SecurityLevel) string {
 	switch level {
-	case formats.SecurityCritical:
+	case formats.IntegrityPending, formats.IntegritySuspicious, formats.SecurityCritical, formats.SecurityMalicious:
 		return ColorRed
 	case formats.SecurityHigh:
 		return ColorMagenta
@@ -71,6 +71,7 @@ func readInput(prompt string) string {
 // selectFormat prompts the user to select a package format
 func selectFormat() formats.PackageFormat {
 	formats := []formats.PackageFormat{
+		formats.CargoFormat{},
 		// formats.CondaFormat{},
 		formats.MavenFormat{},
 		formats.NPMFormat{},
