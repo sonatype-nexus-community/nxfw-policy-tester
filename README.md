@@ -75,7 +75,7 @@ Follow the prompts - you'll need the URL to your Sonatype Nexus Repository insta
 | PyPi                | `Security-Critical`   | ✅        |
 | PyPi                | `Security-High`       | ✅        |
 | PyPi                | `Security-Medium`     | ✅        |
-| PyPi                | `Security-Low`        | ❌        |
+| PyPi                | `Security-Low`        | ✅        |
 | PyPi                | `Security-Malicious`^ | ✅        |
 | PyPi                | `Integrity-Rating`±   | ✅        |
 
