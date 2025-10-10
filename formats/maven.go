@@ -37,6 +37,9 @@ func (m MavenFormat) GetPackages() []Package {
 		{Name: "com.amazonaws/aws-android-sdk-core", Version: "2.75.0", SecurityLevel: SecurityCritical, Extension: "aar"},
 		{Name: "org.jsoup/jsoup", Version: "1.13.1", SecurityLevel: SecurityHigh, Extension: "jar"},
 		{Name: "ant/ant", Version: "1.6.5", SecurityLevel: SecurityMedium, Extension: "jar"},
+		{Name: "org.sonatype/maven-policy-demo", Version: "1.1.0", SecurityLevel: SecurityMalicious, Extension: "jar"},
+		{Name: "org.sonatype/maven-policy-demo", Version: "1.2.0", SecurityLevel: IntegritySuspicious, Extension: "jar"},
+		{Name: "org.sonatype/maven-policy-demo", Version: "1.3.0", SecurityLevel: IntegrityPending, Extension: "jar"},
 	}
 }
 
