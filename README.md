@@ -56,6 +56,10 @@ Follow the prompts - you'll need the URL to your Sonatype Nexus Repository insta
 | CRAN (R)            | `Security-High`       | ✅        |
 | CRAN (R)            | `Security-Medium`     | ✅        |
 | CRAN (R)            | `Security-Low`        | ❌        |
+| Golang              | `Security-Critical`   | ❌        |
+| Golang              | `Security-High`       | ✅        |
+| Golang              | `Security-Medium`     | ✅        |
+| Golang              | `Security-Low`        | ❌        |
 | Maven               | `Security-Critical`   | ✅        |
 | Maven               | `Security-High`       | ✅        |
 | Maven               | `Security-Medium`     | ✅        |
