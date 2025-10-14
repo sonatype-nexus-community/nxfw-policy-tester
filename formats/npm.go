@@ -35,13 +35,13 @@ func (n NPMFormat) GetDisplayName() string {
 
 func (n NPMFormat) GetPackages() []Package {
 	return []Package{
-		{Name: "bson", Version: "1.0.9", SecurityLevel: SecurityCritical, Extension: "tgz"},
-		{Name: "braces", Version: "1.8.5", SecurityLevel: SecurityHigh, Extension: "tgz"},
-		{Name: "cookie", Version: "0.3.1", SecurityLevel: SecurityMedium, Extension: "tgz"},
-		{Name: "react-dom", Version: "18.3.1", SecurityLevel: SecurityLow, Extension: "tgz"},
-		{Name: "@sonatype/policy-demo", Version: "2.3.0", SecurityLevel: IntegrityPending, Extension: "tgz"},
-		{Name: "@sonatype/policy-demo", Version: "2.2.0", SecurityLevel: IntegritySuspicious, Extension: "tgz"},
-		{Name: "@sonatype/policy-demo", Version: "2.1.0", SecurityLevel: SecurityMalicious, Extension: "tgz"},
+		{Name: "bson", Version: "1.0.9", PolicyName: SecurityCritical, Extension: "tgz"},
+		{Name: "braces", Version: "1.8.5", PolicyName: SecurityHigh, Extension: "tgz"},
+		{Name: "cookie", Version: "0.3.1", PolicyName: SecurityMedium, Extension: "tgz"},
+		{Name: "react-dom", Version: "18.3.1", PolicyName: SecurityLow, Extension: "tgz"},
+		{Name: "@sonatype/policy-demo", Version: "2.3.0", PolicyName: IntegrityPending, Extension: "tgz"},
+		{Name: "@sonatype/policy-demo", Version: "2.2.0", PolicyName: IntegritySuspicious, Extension: "tgz"},
+		{Name: "@sonatype/policy-demo", Version: "2.1.0", PolicyName: SecurityMalicious, Extension: "tgz"},
 	}
 }
 

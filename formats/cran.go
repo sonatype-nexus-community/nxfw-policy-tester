@@ -33,8 +33,8 @@ func (p CranFormat) GetDisplayName() string {
 
 func (p CranFormat) GetPackages() []Package {
 	return []Package{
-		{Name: "readxl", Version: "0.1.0", SecurityLevel: SecurityHigh, Extension: "tar.gz"},
-		{Name: "xgboost", Version: "0.6-3", SecurityLevel: SecurityMedium, Extension: "tar.gz"},
+		{Name: "readxl", Version: "0.1.0", PolicyName: SecurityHigh, Extension: "tar.gz"},
+		{Name: "xgboost", Version: "0.6-3", PolicyName: SecurityMedium, Extension: "tar.gz"},
 	}
 }
 

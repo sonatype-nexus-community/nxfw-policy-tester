@@ -35,10 +35,10 @@ func (n NuGetFormat) GetDisplayName() string {
 func (n NuGetFormat) GetPackages() []Package {
 	// Placeholder - packages will be provided later
 	return []Package{
-		{Name: "log4net", Version: "2.0.3", SecurityLevel: SecurityCritical},
-		{Name: "Newtonsoft.Json", Version: "6.0.4", SecurityLevel: SecurityHigh},
-		{Name: "Microsoft.Owin", Version: "2.1.0", SecurityLevel: SecurityMedium},
-		{Name: "Microsoft.AspNet.SignalR.Core", Version: "2.0.3", SecurityLevel: SecurityLow},
+		{Name: "log4net", Version: "2.0.3", PolicyName: SecurityCritical},
+		{Name: "Newtonsoft.Json", Version: "6.0.4", PolicyName: SecurityHigh},
+		{Name: "Microsoft.Owin", Version: "2.1.0", PolicyName: SecurityMedium},
+		{Name: "Microsoft.AspNet.SignalR.Core", Version: "2.0.3", PolicyName: SecurityLow},
 	}
 }
 

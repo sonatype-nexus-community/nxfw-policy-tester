@@ -32,8 +32,8 @@ func (c CargoFormat) GetDisplayName() string {
 func (c CargoFormat) GetPackages() []Package {
 	// Placeholder - packages will be provided later
 	return []Package{
-		{Name: "hyper", Version: "0.14.9", SecurityLevel: SecurityCritical},
-		{Name: "abi_stable", Version: "0.8.4", SecurityLevel: SecurityHigh},
+		{Name: "hyper", Version: "0.14.9", PolicyName: SecurityCritical},
+		{Name: "abi_stable", Version: "0.8.4", PolicyName: SecurityHigh},
 	}
 }
 
