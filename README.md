@@ -19,7 +19,16 @@ This tool expects the [Reference Policy Set](https://help.sonatype.com/en/refere
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Tests Available](#tests-available)
+- [Test Data Available](#test-data-available)
+  - [Cargo (Rust)](#cargo-rust)
+  - [Conda (conda-forge)](#conda-conda-forge)
+  - [CRAN (R)](#cran-r)
+  - [Golang (Go)](#golang-go)
+  - [Huggingface.co (AI / ML)](#huggingfaceco-ai--ml)
+  - [Maven (Java)](#maven-java)
+  - [NPM (Javascript / Typescript)](#npm-javascript--typescript)
+  - [Nuget (.NET)](#nuget-net)
+  - [PyPi (Python)](#pypi-python)
 - [Development](#development)
 - [The Fine Print](#the-fine-print)
 
@@ -40,54 +49,190 @@ Set your Sonatype Nexus Repository credentials in two environment variables:
 
 Follow the prompts - you'll need the URL to your Sonatype Nexus Repository installation (https:// only supported).
 
-## Tests Available
+## Test Data Available
 
-| Format              | Reference Policy      | Available |
-| ------------------- | --------------------- | --------- |
-| Cargo (Rust)        | `Security-Critical`   | ✅        |
-| Cargo (Rust)        | `Security-High`       | ✅        |
-| Cargo (Rust)        | `Security-Medium`     | ❌        |
-| Cargo (Rust)        | `Security-Low`        | ❌        |
-| Conda (conda-forge) | `Security-Critical`   | ✅        |
-| Conda (conda-forge) | `Security-High`       | ✅        |
-| Conda (conda-forge) | `Security-Medium`     | ❌        |
-| Conda (conda-forge) | `Security-Low`        | ✅        |
-| CRAN (R)            | `Security-Critical`   | ❌        |
-| CRAN (R)            | `Security-High`       | ✅        |
-| CRAN (R)            | `Security-Medium`     | ✅        |
-| CRAN (R)            | `Security-Low`        | ❌        |
-| Golang              | `Security-Critical`   | ❌        |
-| Golang              | `Security-High`       | ✅        |
-| Golang              | `Security-Medium`     | ✅        |
-| Golang              | `Security-Low`        | ❌        |
-| Maven               | `Security-Critical`   | ✅        |
-| Maven               | `Security-High`       | ✅        |
-| Maven               | `Security-Medium`     | ✅        |
-| Maven               | `Security-Low`        | ✅        |
-| Maven               | `Security-Malicious`^ | ✅        |
-| Maven               | `Integrity-Rating`±   | ✅        |
-| NPM                 | `Security-Critical`   | ✅        |
-| NPM                 | `Security-High`       | ✅        |
-| NPM                 | `Security-Medium`     | ✅        |
-| NPM                 | `Security-Low`        | ✅        |
-| NPM                 | `Security-Malicious`^ | ✅        |
-| NPM                 | `Integrity-Rating`±   | ✅        |
-| Nuget               | `Security-Critical`   | ✅        |
-| Nuget               | `Security-High`       | ✅        |
-| Nuget               | `Security-Medium`     | ✅        |
-| Nuget               | `Security-Low`        | ✅        |
-| PyPi                | `Security-Critical`   | ✅        |
-| PyPi                | `Security-High`       | ✅        |
-| PyPi                | `Security-Medium`     | ✅        |
-| PyPi                | `Security-Low`        | ✅        |
-| PyPi                | `Security-Malicious`^ | ✅        |
-| PyPi                | `Integrity-Rating`±   | ✅        |
+Test data is aimed to validate the [Sonatype Reference Policy Set](https://help.sonatype.com/en/reference-policies.html).
+
+If you have customised or custom Policies, plesae consider this.
 
 > NOTES:
 >
-> ^ Does not rely on real malicious package for verification - uses Sonatype staged packages marked as Malicious, but that are not actually malicious in content.
+> ^ Does not rely on actually malicious package(s) for verification - uses Sonatype staged packages marked as Malicious.
 >
-> ± Includes packages in both Pending and Suspicious states.
+> ± Includes packages in both Pending and Suspicious states, where staged test data is available.
+>
+> § See [Firewall Specific Policies](https://help.sonatype.com/en/security-policies.html#firewall-specific-policies) - unrealistic to test in a generic manner.
+
+### Cargo (Rust)
+
+| Policy Type | Reference Policy               | Available            |
+| ----------- | ------------------------------ | -------------------- |
+| Legal       | `License-Banned`               | ❌                   |
+| Legal       | `License-None`                 | ❌                   |
+| Legal       | `License-Copyleft`             | ❌                   |
+| Legal       | `License-Threat Not Assigned`  | ❌                   |
+| Legal       | `License-AI-ML`                | N/A                  |
+| Legal       | `License-Non-Standard`         | ❌                   |
+| Legal       | `License-Weak-Copyleft`        | ❌                   |
+| Security    | `Security-Namespace Conflict`§ | ❌                   |
+| Security    | `Security-Malicious`           | ⛔️ No safe testdata |
+| Security    | `Integrity-Rating`             | ⛔️ No safe testdata |
+| Security    | `Security-Critical`            | ✅                   |
+| Security    | `Security-High`                | ✅                   |
+| Security    | `Security-Medium`              | ❌                   |
+| Security    | `Security-Low`                 | ❌                   |
+
+### Conda (conda-forge)
+
+| Policy Type | Reference Policy               | Available            |
+| ----------- | ------------------------------ | -------------------- |
+| Legal       | `License-Banned`               | ❌                   |
+| Legal       | `License-None`                 | ❌                   |
+| Legal       | `License-Copyleft`             | ❌                   |
+| Legal       | `License-Threat Not Assigned`  | ❌                   |
+| Legal       | `License-AI-ML`                | N/A                  |
+| Legal       | `License-Non-Standard`         | ❌                   |
+| Legal       | `License-Weak-Copyleft`        | ❌                   |
+| Security    | `Security-Namespace Conflict`§ | ❌                   |
+| Security    | `Security-Malicious`           | ⛔️ No safe testdata |
+| Security    | `Integrity-Rating`             | ⛔️ No safe testdata |
+| Security    | `Security-Critical`            | ✅                   |
+| Security    | `Security-High`                | ✅                   |
+| Security    | `Security-Medium`              | ❌                   |
+| Security    | `Security-Low`                 | ✅                   |
+
+### CRAN (R)
+
+| Policy Type | Reference Policy               | Available            |
+| ----------- | ------------------------------ | -------------------- |
+| Legal       | `License-Banned`               | ❌                   |
+| Legal       | `License-None`                 | ❌                   |
+| Legal       | `License-Copyleft`             | ❌                   |
+| Legal       | `License-Threat Not Assigned`  | ❌                   |
+| Legal       | `License-AI-ML`                | N/A                  |
+| Legal       | `License-Non-Standard`         | ❌                   |
+| Legal       | `License-Weak-Copyleft`        | ❌                   |
+| Security    | `Security-Namespace Conflict`§ | ❌                   |
+| Security    | `Security-Malicious`           | ⛔️ No safe testdata |
+| Security    | `Integrity-Rating`             | ⛔️ No safe testdata |
+| Security    | `Security-Critical`            | ❌                   |
+| Security    | `Security-High`                | ✅                   |
+| Security    | `Security-Medium`              | ✅                   |
+| Security    | `Security-Low`                 | ❌                   |
+
+### Golang (Go)
+
+| Policy Type | Reference Policy               | Available            |
+| ----------- | ------------------------------ | -------------------- |
+| Legal       | `License-Banned`               | ❌                   |
+| Legal       | `License-None`                 | ❌                   |
+| Legal       | `License-Copyleft`             | ❌                   |
+| Legal       | `License-Threat Not Assigned`  | ❌                   |
+| Legal       | `License-AI-ML`                | N/A                  |
+| Legal       | `License-Non-Standard`         | ❌                   |
+| Legal       | `License-Weak-Copyleft`        | ❌                   |
+| Security    | `Security-Namespace Conflict`§ | ❌                   |
+| Security    | `Security-Malicious`           | ⛔️ No safe testdata |
+| Security    | `Integrity-Rating`             | ⛔️ No safe testdata |
+| Security    | `Security-Critical`            | ❌                   |
+| Security    | `Security-High`                | ✅                   |
+| Security    | `Security-Medium`              | ✅                   |
+| Security    | `Security-Low`                 | ❌                   |
+
+### Huggingface.co (AI / ML)
+
+| Policy Type | Reference Policy               | Available |
+| ----------- | ------------------------------ | --------- |
+| Legal       | `License-Banned`               | ✅        |
+| Legal       | `License-None`                 | ❌        |
+| Legal       | `License-Copyleft`             | ❌        |
+| Legal       | `License-Threat Not Assigned`  | ❌        |
+| Legal       | `License-AI-ML`                | ❌        |
+| Legal       | `License-Non-Standard`         | ❌        |
+| Legal       | `License-Weak-Copyleft`        | ❌        |
+| Security    | `Security-Namespace Conflict`§ | ❌        |
+| Security    | `Security-Malicious`^          | ✅        |
+| Security    | `Integrity-Rating`±            | ✅        |
+| Security    | `Security-Critical`            | ❌        |
+| Security    | `Security-High`                | ❌        |
+| Security    | `Security-Medium`              | ❌        |
+| Security    | `Security-Low`                 | ❌        |
+
+### Maven (Java)
+
+| Policy Type | Reference Policy               | Available |
+| ----------- | ------------------------------ | --------- |
+| Legal       | `License-Banned`               | ❌        |
+| Legal       | `License-None`                 | ❌        |
+| Legal       | `License-Copyleft`             | ❌        |
+| Legal       | `License-Threat Not Assigned`  | ❌        |
+| Legal       | `License-AI-ML`                | N/A       |
+| Legal       | `License-Non-Standard`         | ❌        |
+| Legal       | `License-Weak-Copyleft`        | ❌        |
+| Security    | `Security-Namespace Conflict`§ | ❌        |
+| Security    | `Security-Malicious`^          | ✅        |
+| Security    | `Integrity-Rating`±            | ✅        |
+| Security    | `Security-Critical`            | ✅        |
+| Security    | `Security-High`                | ✅        |
+| Security    | `Security-Medium`              | ✅        |
+| Security    | `Security-Low`                 | ✅        |
+
+### NPM (Javascript / Typescript)
+
+| Policy Type | Reference Policy               | Available |
+| ----------- | ------------------------------ | --------- |
+| Legal       | `License-Banned`               | ❌        |
+| Legal       | `License-None`                 | ❌        |
+| Legal       | `License-Copyleft`             | ❌        |
+| Legal       | `License-Threat Not Assigned`  | ❌        |
+| Legal       | `License-AI-ML`                | N/A       |
+| Legal       | `License-Non-Standard`         | ❌        |
+| Legal       | `License-Weak-Copyleft`        | ❌        |
+| Security    | `Security-Namespace Conflict`§ | ❌        |
+| Security    | `Security-Malicious`^          | ✅        |
+| Security    | `Integrity-Rating`±            | ✅        |
+| Security    | `Security-Critical`            | ✅        |
+| Security    | `Security-High`                | ✅        |
+| Security    | `Security-Medium`              | ✅        |
+| Security    | `Security-Low`                 | ✅        |
+
+### Nuget (.NET)
+
+| Policy Type | Reference Policy               | Available            |
+| ----------- | ------------------------------ | -------------------- |
+| Legal       | `License-Banned`               | ❌                   |
+| Legal       | `License-None`                 | ❌                   |
+| Legal       | `License-Copyleft`             | ❌                   |
+| Legal       | `License-Threat Not Assigned`  | ❌                   |
+| Legal       | `License-AI-ML`                | N/A                  |
+| Legal       | `License-Non-Standard`         | ❌                   |
+| Legal       | `License-Weak-Copyleft`        | ❌                   |
+| Security    | `Security-Namespace Conflict`§ | ❌                   |
+| Security    | `Security-Malicious`           | ⛔️ No safe testdata |
+| Security    | `Integrity-Rating`             | ⛔️ No safe testdata |
+| Security    | `Security-Critical`            | ✅                   |
+| Security    | `Security-High`                | ✅                   |
+| Security    | `Security-Medium`              | ✅                   |
+| Security    | `Security-Low`                 | ✅                   |
+
+### PyPi (Python)
+
+| Policy Type | Reference Policy               | Available |
+| ----------- | ------------------------------ | --------- |
+| Legal       | `License-Banned`               | ❌        |
+| Legal       | `License-None`                 | ❌        |
+| Legal       | `License-Copyleft`             | ❌        |
+| Legal       | `License-Threat Not Assigned`  | ❌        |
+| Legal       | `License-AI-ML`                | N/A       |
+| Legal       | `License-Non-Standard`         | ❌        |
+| Legal       | `License-Weak-Copyleft`        | ❌        |
+| Security    | `Security-Namespace Conflict`§ | ❌        |
+| Security    | `Security-Malicious`^          | ✅        |
+| Security    | `Integrity-Rating`±            | ✅        |
+| Security    | `Security-Critical`            | ✅        |
+| Security    | `Security-High`                | ✅        |
+| Security    | `Security-Medium`              | ✅        |
+| Security    | `Security-Low`                 | ✅        |
 
 ## Development
 
