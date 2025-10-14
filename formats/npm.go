@@ -35,6 +35,7 @@ func (n NPMFormat) GetDisplayName() string {
 
 func (n NPMFormat) GetPackages() []Package {
 	return []Package{
+		// Security
 		{Name: "bson", Version: "1.0.9", PolicyName: SecurityCritical, Extension: "tgz"},
 		{Name: "braces", Version: "1.8.5", PolicyName: SecurityHigh, Extension: "tgz"},
 		{Name: "cookie", Version: "0.3.1", PolicyName: SecurityMedium, Extension: "tgz"},
@@ -42,6 +43,9 @@ func (n NPMFormat) GetPackages() []Package {
 		{Name: "@sonatype/policy-demo", Version: "2.3.0", PolicyName: IntegrityPending, Extension: "tgz"},
 		{Name: "@sonatype/policy-demo", Version: "2.2.0", PolicyName: IntegritySuspicious, Extension: "tgz"},
 		{Name: "@sonatype/policy-demo", Version: "2.1.0", PolicyName: SecurityMalicious, Extension: "tgz"},
+
+		// Legal
+		{Name: "ramda", Version: "0.27.2", PolicyName: LicenseBanned, Extension: "tgz"},
 	}
 }
 
