@@ -34,13 +34,13 @@ func (m MavenFormat) GetDisplayName() string {
 
 func (m MavenFormat) GetPackages() []Package {
 	return []Package{
-		{Name: "com.amazonaws/aws-android-sdk-core", Version: "2.75.0", SecurityLevel: SecurityCritical, Extension: "aar"},
-		{Name: "org.jsoup/jsoup", Version: "1.13.1", SecurityLevel: SecurityHigh, Extension: "jar"},
-		{Name: "ant/ant", Version: "1.6.5", SecurityLevel: SecurityMedium, Extension: "jar"},
-		{Name: "org.springframework/spring-context", Version: "6.2.3", SecurityLevel: SecurityLow, Extension: "jar"},
-		{Name: "org.sonatype/maven-policy-demo", Version: "1.1.0", SecurityLevel: SecurityMalicious, Extension: "jar"},
-		{Name: "org.sonatype/maven-policy-demo", Version: "1.2.0", SecurityLevel: IntegritySuspicious, Extension: "jar"},
-		{Name: "org.sonatype/maven-policy-demo", Version: "1.3.0", SecurityLevel: IntegrityPending, Extension: "jar"},
+		{Name: "com.amazonaws/aws-android-sdk-core", Version: "2.75.0", PolicyName: SecurityCritical, Extension: "aar"},
+		{Name: "org.jsoup/jsoup", Version: "1.13.1", PolicyName: SecurityHigh, Extension: "jar"},
+		{Name: "ant/ant", Version: "1.6.5", PolicyName: SecurityMedium, Extension: "jar"},
+		{Name: "org.springframework/spring-context", Version: "6.2.3", PolicyName: SecurityLow, Extension: "jar"},
+		{Name: "org.sonatype/maven-policy-demo", Version: "1.1.0", PolicyName: SecurityMalicious, Extension: "jar"},
+		{Name: "org.sonatype/maven-policy-demo", Version: "1.2.0", PolicyName: IntegritySuspicious, Extension: "jar"},
+		{Name: "org.sonatype/maven-policy-demo", Version: "1.3.0", PolicyName: IntegrityPending, Extension: "jar"},
 	}
 }
 

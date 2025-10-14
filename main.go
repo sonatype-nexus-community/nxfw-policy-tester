@@ -47,7 +47,7 @@ const (
 )
 
 // getSecurityColor returns the color code for a security level
-func getSecurityColor(level formats.SecurityLevel) string {
+func getSecurityColor(level formats.PolicyName) string {
 	switch level {
 	case formats.IntegrityPending, formats.IntegritySuspicious, formats.SecurityCritical, formats.SecurityMalicious:
 		return ColorRed
@@ -75,6 +75,7 @@ func selectFormat() formats.PackageFormat {
 		formats.CranFormat{},
 		formats.CondaFormat{},
 		formats.GolangFormat{},
+		formats.HuggingFaceFormat{},
 		formats.MavenFormat{},
 		formats.NPMFormat{},
 		formats.NuGetFormat{},
@@ -172,11 +173,11 @@ func displaySummary(nexusURL, repoName string, format formats.PackageFormat) {
 
 	packages := format.GetPackages()
 	for _, pkg := range packages {
-		color := getSecurityColor(pkg.SecurityLevel)
+		color := getSecurityColor(pkg.PolicyName)
 		fmt.Printf("  - %s %s[%s]%s\n",
 			format.FormatPackageName(pkg),
 			color,
-			pkg.SecurityLevel,
+			pkg.PolicyName,
 			ColorReset)
 	}
 	fmt.Println()
@@ -190,11 +191,11 @@ func checkPackages(nexusURL, repoName, username, password string, format formats
 	fmt.Printf("\n%s=== Checking Package Availability ===%s\n\n", ColorYellow, ColorReset)
 
 	for _, pkg := range packages {
-		color := getSecurityColor(pkg.SecurityLevel)
+		color := getSecurityColor(pkg.PolicyName)
 		fmt.Printf("Checking %s %s[%s]%s...\n",
 			format.FormatPackageName(pkg),
 			color,
-			pkg.SecurityLevel,
+			pkg.PolicyName,
 			ColorReset)
 
 		url := format.ConstructURL(nexusURL, repoName, pkg)
@@ -209,7 +210,7 @@ func checkPackages(nexusURL, repoName, username, password string, format formats
 			fmt.Printf("%s✗ Package not available: %s [%s]%s (Error: %v)\n\n",
 				ColorRed,
 				format.FormatPackageName(pkg),
-				pkg.SecurityLevel,
+				pkg.PolicyName,
 				ColorReset,
 				err)
 			result.Available = false
@@ -217,14 +218,14 @@ func checkPackages(nexusURL, repoName, username, password string, format formats
 			fmt.Printf("%s✓ Package available: %s [%s]%s\n\n",
 				ColorGreen,
 				format.FormatPackageName(pkg),
-				pkg.SecurityLevel,
+				pkg.PolicyName,
 				ColorReset)
 			result.Available = true
 		} else {
 			fmt.Printf("%s✗ Package not available: %s [%s]%s (HTTP %d)\n\n",
 				ColorRed,
 				format.FormatPackageName(pkg),
-				pkg.SecurityLevel,
+				pkg.PolicyName,
 				ColorReset,
 				httpCode)
 			result.Available = false
@@ -255,7 +256,7 @@ func displayResults(results []formats.CheckResult, format formats.PackageFormat)
 
 	fmt.Printf("\n%s=== Security Level Breakdown ===%s\n", ColorYellow, ColorReset)
 	for _, result := range results {
-		color := getSecurityColor(result.Package.SecurityLevel)
+		color := getSecurityColor(result.Package.PolicyName)
 		var status string
 		if result.Available {
 			status = fmt.Sprintf("%s[Available]%s", ColorGreen, ColorReset)
@@ -265,7 +266,7 @@ func displayResults(results []formats.CheckResult, format formats.PackageFormat)
 
 		fmt.Printf("%s%s%s: %s %s\n",
 			color,
-			result.Package.SecurityLevel,
+			result.Package.PolicyName,
 			ColorReset,
 			format.FormatPackageName(result.Package),
 			status)

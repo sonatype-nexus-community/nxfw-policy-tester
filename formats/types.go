@@ -16,26 +16,33 @@
 
 package formats
 
-// SecurityLevel represents the security classification of a package
-type SecurityLevel string
+// PolicyName represents the security classification of a package
+type PolicyName string
 
 const (
-	SecurityCritical    SecurityLevel = "Security-Critical"
-	SecurityHigh        SecurityLevel = "Security-High"
-	SecurityMedium      SecurityLevel = "Security-Medium"
-	SecurityLow         SecurityLevel = "Security-Low"
-	IntegrityPending    SecurityLevel = "Integrity-Pending"
-	IntegritySuspicious SecurityLevel = "Integrity-Suspicious"
-	SecurityMalicious   SecurityLevel = "Security-Malicious"
+	SecurityCritical         PolicyName = "Security-Critical"
+	SecurityHigh             PolicyName = "Security-High"
+	SecurityMedium           PolicyName = "Security-Medium"
+	SecurityLow              PolicyName = "Security-Low"
+	IntegrityPending         PolicyName = "Integrity-Pending"
+	IntegritySuspicious      PolicyName = "Integrity-Suspicious"
+	SecurityMalicious        PolicyName = "Security-Malicious"
+	LicenseBanned            PolicyName = "License-Banned"
+	LicenseNone              PolicyName = "License-None"
+	LicenseCopyLeft          PolicyName = "License-Copyleft"
+	LicenseThreatNotAssigned PolicyName = "License-Threat Not Assigned"
+	LicenseAIML              PolicyName = "License-AI-ML"
+	LicenseNonStandard       PolicyName = "License-Non Standard"
+	LicenseWeakCopyleft      PolicyName = "License-Modified Weak Copyleft"
 )
 
 // Package represents a package to be checked
 type Package struct {
-	Name          string
-	Version       string
-	SecurityLevel SecurityLevel
-	Extension     string
-	Qualifier     string // For PyPI wheel qualifiers like py2.py3-none-any
+	Name       string
+	Version    string
+	PolicyName PolicyName
+	Extension  string
+	Qualifier  string // For PyPI wheel qualifiers like py2.py3-none-any
 }
 
 // PackageFormat represents a package format handler
