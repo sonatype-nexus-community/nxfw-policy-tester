@@ -80,7 +80,7 @@ func (c *NxiqConnection) validateConnection() error {
 
 	if apiResponse.StatusCode != http.StatusOK {
 		cli.PrintCliln(fmt.Sprintf("Error: Sonatype IQ Server is not reporting as available - status code: %d", apiResponse.StatusCode), util.ColorRed)
-		return fmt.Errorf("Error: Sonatype IQ Server is not reporting as available - status code: %d", apiResponse.StatusCode)
+		return fmt.Errorf("error: Sonatype IQ Server is not reporting as available - status code: %d", apiResponse.StatusCode)
 	}
 
 	return nil

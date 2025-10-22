@@ -42,9 +42,7 @@ var (
 	}
 	currentRuntime string = runtime.GOOS
 	commit                = "unknown"
-	nxrmConnection *nxrm.NxrmConnection
-	nxiqConnection *nxiq.NxiqConnection
-	version        = "dev"
+	version               = "dev"
 )
 
 // displaySummary displays the configuration summary
@@ -58,10 +56,15 @@ func displaySummary(nexusURL, repoName string, format formats.PackageFormat) {
 	packages := format.GetPackages()
 	for _, pkg := range packages {
 		color := pkg.PolicyName.GetSecurityColor()
-		cli.PrintCliln(fmt.Sprintf("  - %s %s[%s]%s\n",
-			format.FormatPackageName(pkg),
-			color,
-			pkg.PolicyName), util.ColorReset)
+		cli.PrintCliln(
+			fmt.Sprintf(
+				"  - %s %s[%s]",
+				format.FormatPackageName(pkg),
+				color,
+				pkg.PolicyName,
+			),
+			util.ColorReset,
+		)
 	}
 	fmt.Println()
 }
@@ -182,7 +185,7 @@ func main() {
 	}
 
 	// NXIQ Connection
-	nxiqConnection, err = nxiq.NewNxiqConnection(nxiqUrl, nxiqUsername, nxiqPassword)
+	nxiqConnection, err := nxiq.NewNxiqConnection(nxiqUrl, nxiqUsername, nxiqPassword)
 	if err != nil {
 		os.Exit(1)
 	}
@@ -211,6 +214,10 @@ func main() {
 
 	// Check packages
 	results, err := nxrmConnection.CheckPackages(repoName, format, nxiqConnection)
+	if err != nil {
+		cli.PrintCliln(fmt.Sprintf("Unexpected failure: %v", err), util.ColorRed)
+		os.Exit(1)
+	}
 
 	// Display results
 	displayResults(results, format)

@@ -48,7 +48,7 @@ func (c *NxrmConnection) validateConnection() error {
 
 	if apiResponse.StatusCode != http.StatusOK {
 		cli.PrintCliln(fmt.Sprintf("Error: Nexus Repository is not reporting as available - status code: %d", apiResponse.StatusCode), util.ColorRed)
-		return fmt.Errorf("Error: Nexus Repository is not reporting as available - status code: %d", apiResponse.StatusCode)
+		return fmt.Errorf("error: Nexus Repository is not reporting as available - status code: %d", apiResponse.StatusCode)
 	}
 
 	return nil
@@ -148,16 +148,6 @@ func (c *NxrmConnection) DownloadPackageAtUrl(url string) (int, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return 0, err
-	}
-
-	if req == nil {
-		return 0, fmt.Errorf("Req is nil?")
-	}
-	if c == nil {
-		return 0, fmt.Errorf("NXRM Connection is nil?")
-	}
-	if c.ctx == nil {
-		return 0, fmt.Errorf("ctx is nil?")
 	}
 
 	req.SetBasicAuth(c.username, c.password)
