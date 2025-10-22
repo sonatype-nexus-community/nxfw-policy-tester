@@ -16,6 +16,8 @@
 
 package formats
 
+import "github.com/sonatype-nexus-community/nxfw-policy-tester/util"
+
 // PolicyName represents the security classification of a package
 type PolicyName string
 
@@ -24,17 +26,30 @@ const (
 	SecurityHigh             PolicyName = "Security-High"
 	SecurityMedium           PolicyName = "Security-Medium"
 	SecurityLow              PolicyName = "Security-Low"
-	IntegrityPending         PolicyName = "Integrity-Pending"
-	IntegritySuspicious      PolicyName = "Integrity-Suspicious"
+	IntegrityRating          PolicyName = "Integrity-Rating"
 	SecurityMalicious        PolicyName = "Security-Malicious"
 	LicenseBanned            PolicyName = "License-Banned"
 	LicenseNone              PolicyName = "License-None"
 	LicenseCopyLeft          PolicyName = "License-Copyleft"
 	LicenseThreatNotAssigned PolicyName = "License-Threat Not Assigned"
 	LicenseAIML              PolicyName = "License-AI-ML"
+	LicenseCommercial        PolicyName = "License-Commercial"
 	LicenseNonStandard       PolicyName = "License-Non Standard"
 	LicenseWeakCopyleft      PolicyName = "License-Modified Weak Copyleft"
 )
+
+func (p PolicyName) GetSecurityColor() string {
+	switch p {
+	case LicenseBanned, LicenseNone, LicenseCopyLeft, IntegrityRating, SecurityCritical, SecurityMalicious:
+		return util.ColorRed
+	case LicenseAIML, LicenseCommercial, LicenseThreatNotAssigned, SecurityHigh:
+		return util.ColorMagenta
+	case LicenseNonStandard, LicenseWeakCopyleft, SecurityMedium:
+		return util.ColorYellow
+	default:
+		return util.ColorReset
+	}
+}
 
 // Package represents a package to be checked
 type Package struct {
@@ -56,7 +71,11 @@ type PackageFormat interface {
 
 // CheckResult represents the result of checking a package
 type CheckResult struct {
-	Package   Package
-	Available bool
-	HTTPCode  int
+	Package                       Package
+	Available                     bool
+	Failed                        bool
+	HTTPCode                      int
+	Quarantined                   bool
+	QuarantinedByPolicies         []string
+	QuarantinedWithExpectedPolicy bool
 }

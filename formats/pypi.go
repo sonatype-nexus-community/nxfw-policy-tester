@@ -40,8 +40,8 @@ func (p PyPIFormat) GetPackages() []Package {
 		{Name: "Click", Version: "7.0", PolicyName: SecurityMedium, Extension: "whl", Qualifier: "py2.py3-none-any"},
 		{Name: "requests-toolbelt", Version: "1.0.0", PolicyName: SecurityLow, Extension: "whl", Qualifier: "py2.py3-none-any"},
 		{Name: "python-policy-demo", Version: "1.1.0", PolicyName: SecurityMalicious, Extension: "tar.gz", Qualifier: ""},
-		{Name: "python-policy-demo", Version: "1.2.0", PolicyName: IntegritySuspicious, Extension: "tar.gz", Qualifier: ""},
-		{Name: "python-policy-demo", Version: "1.3.0", PolicyName: IntegrityPending, Extension: "tar.gz", Qualifier: ""},
+		{Name: "python-policy-demo", Version: "1.2.0", PolicyName: IntegrityRating, Extension: "tar.gz", Qualifier: ""},
+		{Name: "python-policy-demo", Version: "1.3.0", PolicyName: IntegrityRating, Extension: "tar.gz", Qualifier: ""},
 
 		// Legal
 		{Name: "nltko", Version: "3.8.1", PolicyName: LicenseBanned, Extension: "whl", Qualifier: "py3-none-any"},

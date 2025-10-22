@@ -16,61 +16,20 @@
 package main
 
 import (
-	"bufio"
-	"context"
 	"fmt"
-	"net/http"
 	"os"
 	"runtime"
-	"strconv"
 	"strings"
 
-	v3 "github.com/sonatype-nexus-community/nexus-repo-api-client-go/v3"
+	"github.com/sonatype-nexus-community/nxfw-policy-tester/cli"
 	"github.com/sonatype-nexus-community/nxfw-policy-tester/formats"
+	"github.com/sonatype-nexus-community/nxfw-policy-tester/nxiq"
+	"github.com/sonatype-nexus-community/nxfw-policy-tester/nxrm"
+	"github.com/sonatype-nexus-community/nxfw-policy-tester/util"
 )
 
 var (
-	currentRuntime string = runtime.GOOS
-	commit                = "unknown"
-	version               = "dev"
-)
-
-// Color codes
-const (
-	ColorRed     = "\033[0;31m"
-	ColorGreen   = "\033[0;32m"
-	ColorYellow  = "\033[1;33m"
-	ColorCyan    = "\033[0;36m"
-	ColorMagenta = "\033[0;35m"
-	ColorBlue    = "\033[0;34m"
-	ColorReset   = "\033[0m"
-)
-
-// getSecurityColor returns the color code for a security level
-func getSecurityColor(level formats.PolicyName) string {
-	switch level {
-	case formats.IntegrityPending, formats.IntegritySuspicious, formats.SecurityCritical, formats.SecurityMalicious:
-		return ColorRed
-	case formats.SecurityHigh:
-		return ColorMagenta
-	case formats.SecurityMedium:
-		return ColorYellow
-	default:
-		return ColorReset
-	}
-}
-
-// readInput reads a line from stdin
-func readInput(prompt string) string {
-	fmt.Print(prompt)
-	reader := bufio.NewReader(os.Stdin)
-	input, _ := reader.ReadString('\n')
-	return strings.TrimSpace(input)
-}
-
-// selectFormat prompts the user to select a package format
-func selectFormat() formats.PackageFormat {
-	formats := []formats.PackageFormat{
+	allSupportedFormats = []formats.PackageFormat{
 		formats.CargoFormat{},
 		formats.CranFormat{},
 		formats.CondaFormat{},
@@ -81,195 +40,79 @@ func selectFormat() formats.PackageFormat {
 		formats.NuGetFormat{},
 		formats.PyPIFormat{},
 	}
-
-	fmt.Printf("%sSelect package format:%s\n", ColorYellow, ColorReset)
-	for i, format := range formats {
-		fmt.Printf("%d) %s\n", i+1, format.GetDisplayName())
-	}
-
-	choice := readInput("Enter choice: ")
-	choiceI, err := strconv.Atoi(choice)
-	if err != nil {
-		fmt.Printf("%sError: Invalid choice.%s\n", ColorRed, ColorReset)
-		os.Exit(1)
-	}
-
-	if choiceI > len(formats) {
-		fmt.Printf("%sError: Invalid choice.%s\n", ColorRed, ColorReset)
-		os.Exit(1)
-	}
-
-	return formats[(choiceI - 1)]
-}
-
-// selectRepository prompts the user to select a repository from available proxies
-func selectRepository(apiClient *v3.APIClient, ctx context.Context, formatName string) (string, error) {
-	// Get all repositories using the RepositoryManagementAPI
-	repos, _, err := apiClient.RepositoryManagementAPI.GetAllRepositories(ctx).Execute()
-	if err != nil {
-		return "", fmt.Errorf("failed to list repositories: %w", err)
-	}
-
-	// Filter for proxy repositories of the correct format
-	var proxyRepos []v3.RepositoryXO
-	for _, repo := range repos {
-		// Check if it's a proxy and matches the format
-		if repo.GetType() == "proxy" && repo.GetFormat() == formatName {
-			proxyRepos = append(proxyRepos, repo)
-		}
-	}
-
-	if len(proxyRepos) == 0 {
-		return "", fmt.Errorf("no %s proxy repositories found", formatName)
-	}
-
-	fmt.Printf("\n%sAvailable %s proxy repositories:%s\n", ColorYellow, formatName, ColorReset)
-	for i, repo := range proxyRepos {
-		fmt.Printf("%d) %s\n", i+1, repo.GetName())
-	}
-
-	choice := readInput("\nSelect repository (enter number): ")
-
-	var selectedIndex int
-	_, err = fmt.Sscanf(choice, "%d", &selectedIndex)
-	if err != nil || selectedIndex < 1 || selectedIndex > len(proxyRepos) {
-		return "", fmt.Errorf("invalid selection")
-	}
-
-	return proxyRepos[selectedIndex-1].GetName(), nil
-}
-
-// checkPackage checks if a package is available
-func checkPackage(url, username, password string) (int, error) {
-	client := &http.Client{}
-	req, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		return 0, err
-	}
-
-	req.SetBasicAuth(username, password)
-
-	resp, err := client.Do(req)
-	if err != nil {
-		return 0, err
-	}
-	defer func() {
-		if closeErr := resp.Body.Close(); closeErr != nil {
-			// Log the error if needed, but don't override the main return value
-			fmt.Fprintf(os.Stderr, "Warning: failed to close response body: %v\n", closeErr)
-		}
-	}()
-
-	return resp.StatusCode, nil
-}
+	currentRuntime string = runtime.GOOS
+	commit                = "unknown"
+	version               = "dev"
+)
 
 // displaySummary displays the configuration summary
 func displaySummary(nexusURL, repoName string, format formats.PackageFormat) {
-	fmt.Printf("\n%s=== Configuration Summary ===%s\n", ColorYellow, ColorReset)
-	fmt.Printf("Nexus URL: %s\n", nexusURL)
-	fmt.Printf("Format: %s\n", format.GetDisplayName())
-	fmt.Printf("Repository: %s\n", repoName)
-	fmt.Println("\nPackages to check:")
+	cli.PrintCliln("\n=== Configuration Summary ===\n", util.ColorYellow)
+	cli.PrintCliln("Nexus Repository URL: "+nexusURL, util.ColorReset)
+	cli.PrintCliln("Format: "+format.GetDisplayName(), util.ColorReset)
+	cli.PrintCliln("Repository: "+repoName, util.ColorReset)
+	cli.PrintCliln("\nPackages to check:", util.ColorReset)
 
 	packages := format.GetPackages()
 	for _, pkg := range packages {
-		color := getSecurityColor(pkg.PolicyName)
-		fmt.Printf("  - %s %s[%s]%s\n",
-			format.FormatPackageName(pkg),
-			color,
-			pkg.PolicyName,
-			ColorReset)
+		color := pkg.PolicyName.GetSecurityColor()
+		cli.PrintCliln(
+			fmt.Sprintf(
+				"  - %s %s[%s]",
+				format.FormatPackageName(pkg),
+				color,
+				pkg.PolicyName,
+			),
+			util.ColorReset,
+		)
 	}
 	fmt.Println()
 }
 
-// checkPackages checks all packages and returns results
-func checkPackages(nexusURL, repoName, username, password string, format formats.PackageFormat) []formats.CheckResult {
-	packages := format.GetPackages()
-	results := make([]formats.CheckResult, 0, len(packages))
-
-	fmt.Printf("\n%s=== Checking Package Availability ===%s\n\n", ColorYellow, ColorReset)
-
-	for _, pkg := range packages {
-		color := getSecurityColor(pkg.PolicyName)
-		fmt.Printf("Checking %s %s[%s]%s...\n",
-			format.FormatPackageName(pkg),
-			color,
-			pkg.PolicyName,
-			ColorReset)
-
-		url := format.ConstructURL(nexusURL, repoName, pkg)
-		httpCode, err := checkPackage(url, username, password)
-
-		result := formats.CheckResult{
-			Package:  pkg,
-			HTTPCode: httpCode,
-		}
-
-		if err != nil {
-			fmt.Printf("%s✗ Package not available: %s [%s]%s (Error: %v)\n\n",
-				ColorRed,
-				format.FormatPackageName(pkg),
-				pkg.PolicyName,
-				ColorReset,
-				err)
-			result.Available = false
-		} else if httpCode == 200 {
-			fmt.Printf("%s✓ Package available: %s [%s]%s\n\n",
-				ColorGreen,
-				format.FormatPackageName(pkg),
-				pkg.PolicyName,
-				ColorReset)
-			result.Available = true
-		} else {
-			fmt.Printf("%s✗ Package not available: %s [%s]%s (HTTP %d)\n\n",
-				ColorRed,
-				format.FormatPackageName(pkg),
-				pkg.PolicyName,
-				ColorReset,
-				httpCode)
-			result.Available = false
-		}
-
-		results = append(results, result)
-	}
-
-	return results
-}
-
 // displayResults displays the check results summary
 func displayResults(results []formats.CheckResult, format formats.PackageFormat) {
-	successCount := 0
-	failCount := 0
+	availableCount := 0
+	failedCount := 0
+	quarantinedCount := 0
 
 	for _, result := range results {
 		if result.Available {
-			successCount++
-		} else {
-			failCount++
+			availableCount++
+		} else if result.Quarantined {
+			quarantinedCount++
+		} else if result.Failed {
+			failedCount++
 		}
 	}
 
-	fmt.Printf("%s=== Check Summary ===%s\n", ColorYellow, ColorReset)
-	fmt.Printf("%sAvailable: %d%s\n", ColorGreen, successCount, ColorReset)
-	fmt.Printf("%sNot Available: %d%s\n", ColorRed, failCount, ColorReset)
+	cli.PrintCliln("===================== Test Summary =====================", util.ColorYellow)
+	cli.PrintCliln(fmt.Sprintf("Downloadable:         %02d", availableCount), util.ColorGreen)
+	cli.PrintCliln(fmt.Sprintf("Quarantined:          %02d", quarantinedCount), util.ColorCyan)
+	cli.PrintCliln(fmt.Sprintf("Failure:              %02d", failedCount), util.ColorRed)
 
-	fmt.Printf("\n%s=== Security Level Breakdown ===%s\n", ColorYellow, ColorReset)
+	cli.PrintCliln("----------------------- Details ------------------------", util.ColorYellow)
 	for _, result := range results {
-		color := getSecurityColor(result.Package.PolicyName)
-		var status string
+		color := result.Package.PolicyName.GetSecurityColor()
+		var status = "UNKNOWN"
 		if result.Available {
-			status = fmt.Sprintf("%s[Available]%s", ColorGreen, ColorReset)
-		} else {
-			status = fmt.Sprintf("%s[Not Available]%s", ColorRed, ColorReset)
+			status = fmt.Sprintf("%sAVAILABLE%s", util.ColorGreen, util.ColorReset)
+		} else if result.Quarantined && result.QuarantinedWithExpectedPolicy {
+			status = fmt.Sprintf("%sQUARANTINED%s", util.ColorCyan, util.ColorReset)
+		} else if result.Quarantined && !result.QuarantinedWithExpectedPolicy {
+			status = fmt.Sprintf("%sOOOPS%s", util.ColorRed, util.ColorReset)
+		} else if result.Failed {
+			status = fmt.Sprintf("%sFAILED%s", util.ColorRed, util.ColorReset)
 		}
 
-		fmt.Printf("%s%s%s: %s %s\n",
+		cli.PrintCliln(
+			fmt.Sprintf(
+				"%25s: %45s - %15s",
+				result.Package.PolicyName,
+				format.FormatPackageName(result.Package),
+				status,
+			),
 			color,
-			result.Package.PolicyName,
-			ColorReset,
-			format.FormatPackageName(result.Package),
-			status)
+		)
 	}
 }
 
@@ -284,6 +127,11 @@ func main() {
 	println(" 	███████║╚██████╔╝██║ ╚████║██║  ██║   ██║      ██║   ██║     ███████╗  ")
 	println(" 	╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚═╝     ╚══════╝  ")
 	println("")
+	println("             ___  _____  __  __  __  __  __  __  _  _  ____  ____  _  _ ")
+	println("            / __)(  _  )(  \\/  )(  \\/  )(  )(  )( \\( )(_  _)(_  _)( \\/ )       ")
+	println("           ( (__  )(_)(  )    (  )    (  )(__)(  )  (  _)(_   )(   \\  /        ")
+	println("            \\___)(_____)(_/\\/\\_)(_/\\/\\_)(______)(_)\\_)(____) (__)  (__)        ")
+	println("")
 	println(fmt.Sprintf("	Running on:		%s/%s", currentRuntime, runtime.GOARCH))
 	println(fmt.Sprintf("	Version: 		%s (%s)", version, commit))
 	println("")
@@ -291,62 +139,66 @@ func main() {
 	println("")
 
 	// Get credentials from environment variables
-	username := os.Getenv("NEXUS_USERNAME")
-	password := os.Getenv("NEXUS_PASSWORD")
+	nxrmUsername := os.Getenv("NXRM_USERNAME")
+	nxrmPassword := os.Getenv("NXRM_PASSWORD")
+	nxiqUsername := os.Getenv("NXIQ_USERNAME")
+	nxiqPassword := os.Getenv("NXIQ_PASSWORD")
 
-	if username == "" || password == "" {
-		fmt.Printf("%sError: NEXUS_USERNAME and NEXUS_PASSWORD environment variables must be set.%s\n", ColorRed, ColorReset)
-		fmt.Println("Example: export NEXUS_USERNAME='your_username'")
-		fmt.Println("         export NEXUS_PASSWORD='your_password'")
+	if nxrmUsername == "" || nxrmPassword == "" {
+		fmt.Printf("%sError: NXRM_USERNAME and NXRM_PASSWORD environment variables must be set.%s\n", util.ColorRed, util.ColorReset)
+		fmt.Println("Example: export NXRM_USERNAME='your_username'")
+		fmt.Println("         export NXRM_PASSWORD='your_password'")
 		os.Exit(1)
 	}
 
-	// Select package format
-	format := selectFormat()
+	if nxiqUsername == "" || nxiqPassword == "" {
+		fmt.Printf("%sError: NXIQ_PASSWORD and NXIQ_USERNAME environment variables must be set.%s\n", util.ColorRed, util.ColorReset)
+		fmt.Println("Example: export NXIQ_PASSWORD='your_username'")
+		fmt.Println("         export NXIQ_USERNAME='your_password'")
+		os.Exit(1)
+	}
 
 	// Get Nexus URL
-	fmt.Printf("\n%sEnter your Sonatype Nexus Repository URL:%s\n", ColorYellow, ColorReset)
+	fmt.Printf("\n%sEnter your Sonatype Nexus Repository URL:%s\n", util.ColorYellow, util.ColorReset)
 	fmt.Println("(Example: https://nexus.example.com)")
-	nexusURL := readInput("")
+	nexusURL := cli.ReadInput("")
 	nexusURL = strings.TrimSuffix(nexusURL, "/")
 
 	// Validate URL
 	if !strings.HasPrefix(nexusURL, "http://") && !strings.HasPrefix(nexusURL, "https://") {
-		fmt.Printf("%sError: Invalid URL format. URL must start with http:// or https://%s\n", ColorRed, ColorReset)
+		fmt.Printf("%sError: Invalid URL format. URL must start with http:// or https://%s\n", util.ColorRed, util.ColorReset)
 		os.Exit(1)
 	}
 
-	// Create API client configuration
-	configuration := v3.NewConfiguration()
-	configuration.Servers = v3.ServerConfigurations{
-		{
-			URL: nexusURL + "/service/rest",
-		},
-	}
-
-	// Create API client
-	apiClient := v3.NewAPIClient(configuration)
-
-	// Create context with basic auth
-	ctx := context.WithValue(context.Background(), v3.ContextBasicAuth, v3.BasicAuth{
-		UserName: username,
-		Password: password,
-	})
-
-	// Validate credentials by making a test call
-	_, err := apiClient.StatusAPI.IsAvailable(ctx).Execute()
+	// NXRM Connection
+	nxrmConnection, err := nxrm.NewNxrmConnection(nexusURL, nxrmUsername, nxrmPassword)
 	if err != nil {
-		fmt.Printf("%sError: Failed to authenticate with Nexus. Please check your credentials and URL.%s\n", ColorRed, ColorReset)
-		fmt.Printf("Details: %v\n", err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("%s✓ Successfully authenticated with Nexus%s\n", ColorGreen, ColorReset)
+	cli.PrintCliln("✓ Successfully authenticated with Sonatype Nexus Repository", util.ColorGreen)
 
-	// Select repository
-	repoName, err := selectRepository(apiClient, ctx, format.GetName())
+	// Get IQ URL
+	nxiqUrl, err := nxrmConnection.GetConnectedIqServer()
 	if err != nil {
-		fmt.Printf("%sError: %v%s\n", ColorRed, err, ColorReset)
+		os.Exit(1)
+	}
+
+	// NXIQ Connection
+	nxiqConnection, err := nxiq.NewNxiqConnection(nxiqUrl, nxiqUsername, nxiqPassword)
+	if err != nil {
+		os.Exit(1)
+	}
+
+	cli.PrintCliln(fmt.Sprintf("✓ Successfully authenticated with Sonatype IQ Server (%s)", nxiqUrl), util.ColorGreen)
+
+	// Select package format
+	format := cli.PromptSelectFormat(allSupportedFormats)
+
+	// Select Repository
+	repoName, err := nxrmConnection.SelectRepository(format.GetName())
+	if err != nil {
+		cli.PrintCliln(fmt.Sprintf("Error: %v", err), util.ColorRed)
 		os.Exit(1)
 	}
 
@@ -354,14 +206,18 @@ func main() {
 	displaySummary(nexusURL, repoName, format)
 
 	// Confirm
-	confirmation := readInput("Proceed with checking packages? (y/n): ")
+	confirmation := cli.ReadInput("Proceed with checking packages? (y/n): ")
 	if !strings.HasPrefix(strings.ToLower(confirmation), "y") {
-		fmt.Println("Check cancelled.")
+		cli.PrintCliln("User cancelled.", util.ColorRed)
 		os.Exit(0)
 	}
 
 	// Check packages
-	results := checkPackages(nexusURL, repoName, username, password, format)
+	results, err := nxrmConnection.CheckPackages(repoName, format, nxiqConnection)
+	if err != nil {
+		cli.PrintCliln(fmt.Sprintf("Unexpected failure: %v", err), util.ColorRed)
+		os.Exit(1)
+	}
 
 	// Display results
 	displayResults(results, format)
