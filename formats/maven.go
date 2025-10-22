@@ -39,8 +39,8 @@ func (m MavenFormat) GetPackages() []Package {
 		{Name: "ant/ant", Version: "1.6.5", PolicyName: SecurityMedium, Extension: "jar"},
 		{Name: "org.springframework/spring-context", Version: "6.2.3", PolicyName: SecurityLow, Extension: "jar"},
 		{Name: "org.sonatype/maven-policy-demo", Version: "1.1.0", PolicyName: SecurityMalicious, Extension: "jar"},
-		{Name: "org.sonatype/maven-policy-demo", Version: "1.2.0", PolicyName: IntegritySuspicious, Extension: "jar"},
-		{Name: "org.sonatype/maven-policy-demo", Version: "1.3.0", PolicyName: IntegrityPending, Extension: "jar"},
+		{Name: "org.sonatype/maven-policy-demo", Version: "1.2.0", PolicyName: IntegrityRating, Extension: "jar"},
+		{Name: "org.sonatype/maven-policy-demo", Version: "1.3.0", PolicyName: IntegrityRating, Extension: "jar"},
 	}
 }
 

@@ -40,8 +40,8 @@ func (n NPMFormat) GetPackages() []Package {
 		{Name: "braces", Version: "1.8.5", PolicyName: SecurityHigh, Extension: "tgz"},
 		{Name: "cookie", Version: "0.3.1", PolicyName: SecurityMedium, Extension: "tgz"},
 		{Name: "react-dom", Version: "18.3.1", PolicyName: SecurityLow, Extension: "tgz"},
-		{Name: "@sonatype/policy-demo", Version: "2.3.0", PolicyName: IntegrityPending, Extension: "tgz"},
-		{Name: "@sonatype/policy-demo", Version: "2.2.0", PolicyName: IntegritySuspicious, Extension: "tgz"},
+		{Name: "@sonatype/policy-demo", Version: "2.3.0", PolicyName: IntegrityRating, Extension: "tgz"},
+		{Name: "@sonatype/policy-demo", Version: "2.2.0", PolicyName: IntegrityRating, Extension: "tgz"},
 		{Name: "@sonatype/policy-demo", Version: "2.1.0", PolicyName: SecurityMalicious, Extension: "tgz"},
 
 		// Legal

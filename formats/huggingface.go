@@ -36,8 +36,8 @@ func (h HuggingFaceFormat) GetPackages() []Package {
 	// Placeholder - packages will be provided later
 	return []Package{
 		// Security
-		{Name: "sonatype/huggingface-policy-demo", Version: "9f69193fe915031a1cb5be8adef4a40b43778e9a", PolicyName: IntegrityPending, Extension: "", Qualifier: "9f69193fe915031a1cb5be8adef4a40b43778e9a:pytorch_model.bin"},
-		{Name: "sonatype/huggingface-policy-demo", Version: "5793ec913638e247ac9311e7b085d43a74e80a03", PolicyName: IntegritySuspicious, Extension: "", Qualifier: "5793ec913638e247ac9311e7b085d43a74e80a03:pytorch_model.bin"},
+		{Name: "sonatype/huggingface-policy-demo", Version: "9f69193fe915031a1cb5be8adef4a40b43778e9a", PolicyName: IntegrityRating, Extension: "", Qualifier: "9f69193fe915031a1cb5be8adef4a40b43778e9a:pytorch_model.bin"},
+		{Name: "sonatype/huggingface-policy-demo", Version: "5793ec913638e247ac9311e7b085d43a74e80a03", PolicyName: IntegrityRating, Extension: "", Qualifier: "5793ec913638e247ac9311e7b085d43a74e80a03:pytorch_model.bin"},
 		{Name: "sonatype/huggingface-policy-demo", Version: "538f4075f93b173f75f10e505448c4d1ddb05515", PolicyName: SecurityMalicious, Extension: "", Qualifier: "538f4075f93b173f75f10e505448c4d1ddb05515:pytorch_model.bin"},
 
 		// Legal
