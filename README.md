@@ -40,8 +40,13 @@ Obtain the binary for your Operating System and Architecture from the [GitHub Re
 
 Set your Sonatype Nexus Repository credentials in two environment variables:
 
--   `NEXUS_USERNAME`
--   `NEXUS_PASSWORD`
+-   `NXRM_USERNAME`
+-   `NXRM_PASSWORD`  
+
+And also your Sonatype IQ Server credentials in two environment variables:
+
+-   `NXIQ_USERNAME`
+-   `NXIQ_PASSWORD`  
 
 ```bash
 ./nxfw-policy-tester
