@@ -32,9 +32,15 @@ func (c CargoFormat) GetDisplayName() string {
 func (c CargoFormat) GetPackages() []Package {
 	// Placeholder - packages will be provided later
 	return []Package{
+		// Security
 		{Name: "hyper", Version: "0.14.9", PolicyName: SecurityCritical},
 		{Name: "abi_stable", Version: "0.8.4", PolicyName: SecurityHigh},
-		// {Name: "hyper", Version: "0.14.9", PolicyName: SecurityMedium},
+		{Name: "lock_api", Version: "0.3.4", PolicyName: SecurityMedium},
+
+		// License
+		{Name: "meadow-dsp-agpl", Version: "0.1.0", PolicyName: LicenseBanned},
+		{Name: "cargo-dtc", Version: "1.7.6", PolicyName: LicenseCopyLeft},
+		{Name: "fuchsia-cprng", Version: "0.1.1", PolicyName: LicenseNonStandard},
 	}
 }
 

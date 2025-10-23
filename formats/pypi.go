@@ -38,13 +38,16 @@ func (p PyPIFormat) GetPackages() []Package {
 		{Name: "Django", Version: "1.6", PolicyName: SecurityCritical, Extension: "whl", Qualifier: "py2.py3-none-any"},
 		{Name: "Flask", Version: "0.12", PolicyName: SecurityHigh, Extension: "whl", Qualifier: "py2.py3-none-any"},
 		{Name: "Click", Version: "7.0", PolicyName: SecurityMedium, Extension: "whl", Qualifier: "py2.py3-none-any"},
-		{Name: "requests-toolbelt", Version: "1.0.0", PolicyName: SecurityLow, Extension: "whl", Qualifier: "py2.py3-none-any"},
+		{Name: "requests-toolbelt", Version: "1.0.0", PolicyName: SecurityLow, Extension: "tar.gz", Qualifier: ""},
 		{Name: "python-policy-demo", Version: "1.1.0", PolicyName: SecurityMalicious, Extension: "tar.gz", Qualifier: ""},
 		{Name: "python-policy-demo", Version: "1.2.0", PolicyName: IntegrityRating, Extension: "tar.gz", Qualifier: ""},
 		{Name: "python-policy-demo", Version: "1.3.0", PolicyName: IntegrityRating, Extension: "tar.gz", Qualifier: ""},
 
 		// Legal
-		{Name: "nltko", Version: "3.8.1", PolicyName: LicenseBanned, Extension: "whl", Qualifier: "py3-none-any"},
+		{Name: "nltk", Version: "3.9.2", PolicyName: LicenseBanned, Extension: "whl", Qualifier: "py3-none-any"},
+		{Name: "gallery_dl", Version: "1.29.0", PolicyName: LicenseCopyLeft, Extension: "whl", Qualifier: "py3-none-any"},
+		{Name: "dawdaw", Version: "0.1.2", PolicyName: LicenseNonStandard, Extension: "whl", Qualifier: "py2.py3-none-any"},
+		{Name: "pypi-project-no-license", Version: "0.elp1.1", PolicyName: LicenseNone, Extension: "tar.gz", Qualifier: ""},
 	}
 }
 
@@ -57,7 +60,7 @@ func (p PyPIFormat) ConstructURL(nexusURL, repoName string, pkg Package) string 
 
 	// Normalize package name (PyPI uses lowercase with hyphens replaced)
 	normalizedName := strings.ToLower(pkg.Name)
-	normalizedName = strings.ReplaceAll(normalizedName, "_", "-")
+	// normalizedName = strings.ReplaceAll(normalizedName, "_", "-")
 
 	filename := fmt.Sprintf("%s-%s-%s.%s", pkg.Name, pkg.Version, pkg.Qualifier, pkg.Extension)
 	if pkg.Extension == "tar.gz" {

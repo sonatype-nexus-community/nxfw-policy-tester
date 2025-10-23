@@ -62,45 +62,49 @@ If you have customised or custom Policies, plesae consider this.
 > ± Includes packages in both Pending and Suspicious states, where staged test data is available.
 >
 > § See [Firewall Specific Policies](https://help.sonatype.com/en/security-policies.html#firewall-specific-policies) - unrealistic to test in a generic manner.
+>
+> ~ See Sonatype's [Ecosystem Support](https://help.sonatype.com/en/analysis.html#ecosystem-support)
 
 ### Cargo (Rust)
 
-| Policy Type | Reference Policy               | Available            |
-| ----------- | ------------------------------ | -------------------- |
-| Legal       | `License-Banned`               | ❌                   |
-| Legal       | `License-None`                 | ❌                   |
-| Legal       | `License-Copyleft`             | ❌                   |
-| Legal       | `License-Threat Not Assigned`  | ❌                   |
-| Legal       | `License-AI-ML`                | N/A                  |
-| Legal       | `License-Non-Standard`         | ❌                   |
-| Legal       | `License-Weak-Copyleft`        | ❌                   |
-| Security    | `Security-Namespace Conflict`§ | ❌                   |
-| Security    | `Security-Malicious`           | ⛔️ No safe testdata |
-| Security    | `Integrity-Rating`             | ⛔️ No safe testdata |
-| Security    | `Security-Critical`            | ✅                   |
-| Security    | `Security-High`                | ✅                   |
-| Security    | `Security-Medium`              | ❌                   |
-| Security    | `Security-Low`                 | ❌                   |
+| Policy Type | Reference Policy              | Available            |
+| ----------- | ----------------------------- | -------------------- |
+| Legal       | `License-Banned`              | ✅                   |
+| Legal       | `License-None`                | ❌                   |
+| Legal       | `License-Copyleft`            | ✅                   |
+| Legal       | `License-Threat Not Assigned` | ❌                   |
+| Legal       | `License-AI-ML`               | N/A                  |
+| Legal       | `License-Non-Standard`        | ✅                   |
+| Legal       | `License-Weak-Copyleft`       | ❌                   |
+| Security    | `Security-Namespace Conflict` | ❌ §                 |
+| Security    | `Security-Malicious`          | ⛔️ No safe testdata |
+| Security    | `Integrity-Rating`            | ⛔️ No safe testdata |
+| Security    | `Security-Critical`           | ✅                   |
+| Security    | `Security-High`               | ✅                   |
+| Security    | `Security-Medium`             | ✅                   |
+| Security    | `Security-Low`                | ❌                   |
 
 ### Conda (conda-forge)
 
-| Policy Type | Reference Policy               | Available            |
-| ----------- | ------------------------------ | -------------------- |
-| Legal       | `License-Banned`               | ❌                   |
-| Legal       | `License-None`                 | ❌                   |
-| Legal       | `License-Copyleft`             | ❌                   |
-| Legal       | `License-Commercial`           | ❌                   |
-| Legal       | `License-Threat Not Assigned`  | ❌                   |
-| Legal       | `License-AI-ML`                | N/A                  |
-| Legal       | `License-Non-Standard`         | ❌                   |
-| Legal       | `License-Weak-Copyleft`        | ❌                   |
-| Security    | `Security-Namespace Conflict`§ | ❌                   |
-| Security    | `Security-Malicious`           | ⛔️ No safe testdata |
-| Security    | `Integrity-Rating`             | ⛔️ No safe testdata |
-| Security    | `Security-Critical`            | ✅                   |
-| Security    | `Security-High`                | ✅                   |
-| Security    | `Security-Medium`              | ❌                   |
-| Security    | `Security-Low`                 | ✅                   |
+_Conda Forge typically keeps only the last fix version for each minor release._
+
+| Policy Type | Reference Policy              | Available            |
+| ----------- | ----------------------------- | -------------------- |
+| Legal       | `License-Banned`              | ❌ ~                 |
+| Legal       | `License-None`                | ❌ ~                 |
+| Legal       | `License-Copyleft`            | ❌ ~                 |
+| Legal       | `License-Commercial`          | ❌ ~                 |
+| Legal       | `License-Threat Not Assigned` | ❌ ~                 |
+| Legal       | `License-AI-ML`               | N/A                  |
+| Legal       | `License-Non-Standard`        | ❌ ~                 |
+| Legal       | `License-Weak-Copyleft`       | ❌ ~                 |
+| Security    | `Security-Namespace Conflict` | ❌ §                 |
+| Security    | `Security-Malicious`          | ⛔️ No safe testdata |
+| Security    | `Integrity-Rating`            | ⛔️ No safe testdata |
+| Security    | `Security-Critical`           | ✅                   |
+| Security    | `Security-High`               | ✅                   |
+| Security    | `Security-Medium`             | ❌                   |
+| Security    | `Security-Low`                | ✅                   |
 
 ### CRAN (R)
 
@@ -226,13 +230,13 @@ If you have customised or custom Policies, plesae consider this.
 
 | Policy Type | Reference Policy               | Available |
 | ----------- | ------------------------------ | --------- |
-| Legal       | `License-Banned`               | ❌        |
+| Legal       | `License-Banned`               | ✅        |
 | Legal       | `License-None`                 | ❌        |
-| Legal       | `License-Copyleft`             | ❌        |
+| Legal       | `License-Copyleft`             | ✅        |
 | Legal       | `License-Commercial`           | ❌        |
 | Legal       | `License-Threat Not Assigned`  | ❌        |
 | Legal       | `License-AI-ML`                | N/A       |
-| Legal       | `License-Non-Standard`         | ❌        |
+| Legal       | `License-Non-Standard`         | ✅        |
 | Legal       | `License-Weak-Copyleft`        | ❌        |
 | Security    | `Security-Namespace Conflict`§ | ❌        |
 | Security    | `Security-Malicious`^          | ✅        |

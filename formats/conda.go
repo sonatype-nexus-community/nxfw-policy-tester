@@ -33,18 +33,21 @@ func (c CondaFormat) GetDisplayName() string {
 }
 
 func (c CondaFormat) GetPackages() []Package {
-	// Placeholder - packages will be provided later
 	return []Package{
+		// Security
 		{Name: "gettext", Version: "0.19.8.1", PolicyName: SecurityCritical, Extension: "tar.bz2", Qualifier: "main/linux-64/h9b4dc7a_1"},
 		{Name: "setuptools", Version: "61.2.0", PolicyName: SecurityHigh, Extension: "tar.bz2", Qualifier: "main/linux-64/py310h06a4308_0"},
-		{Name: "gettext", Version: "0.21.0", PolicyName: SecurityLow, Extension: "tar.bz2", Qualifier: "main/linux-64/h7535e17_0"},
+		{Name: "gettext", Version: "0.21.1", PolicyName: SecurityLow, Extension: "tar.bz2", Qualifier: "main/linux-64/h27087fc_0"},
+
+		// License
+		//
+		{Name: "glmnet", Version: "2.2.1", PolicyName: LicenseCopyLeft, Extension: "conda", Qualifier: "main/linux-64/py310h31179b7_6"},
 	}
 }
 
 func (c CondaFormat) ConstructURL(nexusURL, repoName string, pkg Package) string {
 	// Conda package URL format in Nexus
 	// Format: /repository/{repo}/{channel}/{platform}/{package}-{version}-{build}.{extension}
-	// Example: /repository/conda-proxy/conda-forge/linux-64/numpy-1.19.2-py38h54aff64_0.tar.bz2
 
 	// gettext@0.19.8.1?build=h9b4dc7a_1&channel=main&subdir=linux-64&type=conda
 	// /asn1crypto/0.24.0/download/linux-64/asn1crypto-0.24.0-py37_1003.tar.bz2

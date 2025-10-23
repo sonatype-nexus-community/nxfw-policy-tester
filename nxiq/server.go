@@ -20,6 +20,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 
 	nxiq "github.com/sonatype-nexus-community/nexus-iq-api-client-go"
 	"github.com/sonatype-nexus-community/nxfw-policy-tester/cli"
@@ -46,11 +47,14 @@ func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVers
 	for _, r := range fwResult.Results {
 		var coordinates = r.ComponentIdentifier.GetCoordinates()
 
-		var packageName = ""
+		var packageName, packageName2 = "", ""
 		format := r.ComponentIdentifier.Format
 		switch *format {
-		case "cargo":
+		case "cargo", "conda":
 			packageName = coordinates["name"]
+		case "pypi":
+			packageName = coordinates["name"]
+			packageName2 = strings.ReplaceAll(coordinates["name"], "-", "_")
 		default:
 			packageName = coordinates["packageId"]
 		}
@@ -60,7 +64,7 @@ func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVers
 			continue
 		}
 
-		if packageName == componentName && version == componentVersion {
+		if (packageName == componentName || packageName2 == componentName) && version == componentVersion {
 			if r.Quarantined != nil && *r.Quarantined {
 				quarantined = true
 				if *r.PolicyName == expectedPolicy {

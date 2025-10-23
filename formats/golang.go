@@ -33,8 +33,12 @@ func (n GolangFormat) GetDisplayName() string {
 
 func (n GolangFormat) GetPackages() []Package {
 	return []Package{
+		// Security
 		{Name: "golang.org/x/crypto", Version: "v0.3.0", PolicyName: SecurityHigh, Extension: "zip"},
 		{Name: "github.com/hashicorp/yamux", Version: "v0.1.1", PolicyName: SecurityMedium, Extension: "zip"},
+
+		// Legal
+
 	}
 }
 
