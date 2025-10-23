@@ -109,7 +109,7 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 				os.Exit(1)
 			}
 			quarantined, policyTriggered, fwErr := nxiqConnection.RetrieveFWQuarantineStatus(
-				pkg.Name, pkg.Version, repoName, string(pkg.PolicyName),
+				pkg.Name, pkg.Version, repoName, string(pkg.PolicyName), format.GetName(),
 			)
 			if fwErr != nil {
 				cli.PrintCliln(fmt.Sprintf("Error checking Firewall Quarantine Status: %v", fwErr), util.ColorRed)

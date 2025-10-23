@@ -170,13 +170,13 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 
 | Policy Type | Reference Policy              | Available |
 | ----------- | ----------------------------- | --------- |
-| Legal       | `License-Banned`              | ❌        |
+| Legal       | `License-Banned`              | ✅        |
 | Legal       | `License-None`                | ❌        |
-| Legal       | `License-Copyleft`            | ❌        |
+| Legal       | `License-Copyleft`            | ✅        |
 | Legal       | `License-Commercial`          | ❌        |
 | Legal       | `License-Threat Not Assigned` | ❌        |
 | Legal       | `License-AI-ML`               | N/A       |
-| Legal       | `License-Non-Standard`        | ❌        |
+| Legal       | `License-Non-Standard`        | ✅        |
 | Legal       | `License-Weak-Copyleft`       | ❌        |
 | Security    | `Security-Namespace Conflict` | ❌ §      |
 | Security    | `Security-Malicious`^         | ✅        |

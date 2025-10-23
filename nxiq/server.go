@@ -33,7 +33,13 @@ type NxiqConnection struct {
 	ctx       *context.Context
 }
 
-func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVersion, repositoryName, expectedPolicy string) (bool, bool, error) {
+func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVersion, repositoryName, expectedPolicy, format string) (bool, bool, error) {
+	// Workaround for Maven
+	if format == "maven2" {
+		componentNameParts := strings.Split(componentName, "/")
+		componentName = componentNameParts[1]
+	}
+
 	fwResult, apiResponse, err := c.apiClient.FirewallAPI.GetQuarantineList(*c.ctx).ComponentName(componentName).RepositoryPublicId((repositoryName)).Execute()
 	if err != nil || apiResponse.StatusCode != http.StatusOK {
 		cli.PrintCliln("Error: Failed to query Sonatype Repository Firewall Quarantine List. Please check your credentials and URL.", util.ColorRed)
@@ -54,6 +60,8 @@ func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVers
 			packageName = coordinates["name"]
 		case "hf-model":
 			packageName = coordinates["repo_id"]
+		case "maven":
+			packageName = coordinates["artifactId"]
 		case "pypi":
 			packageName = coordinates["name"]
 			packageName2 = strings.ReplaceAll(coordinates["name"], "-", "_")

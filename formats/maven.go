@@ -34,6 +34,7 @@ func (m MavenFormat) GetDisplayName() string {
 
 func (m MavenFormat) GetPackages() []Package {
 	return []Package{
+		// Security
 		{Name: "com.amazonaws/aws-android-sdk-core", Version: "2.75.0", PolicyName: SecurityCritical, Extension: "aar"},
 		{Name: "org.jsoup/jsoup", Version: "1.13.1", PolicyName: SecurityHigh, Extension: "jar"},
 		{Name: "ant/ant", Version: "1.6.5", PolicyName: SecurityMedium, Extension: "jar"},
@@ -41,6 +42,11 @@ func (m MavenFormat) GetPackages() []Package {
 		{Name: "org.sonatype/maven-policy-demo", Version: "1.1.0", PolicyName: SecurityMalicious, Extension: "jar"},
 		{Name: "org.sonatype/maven-policy-demo", Version: "1.2.0", PolicyName: IntegrityRating, Extension: "jar"},
 		{Name: "org.sonatype/maven-policy-demo", Version: "1.3.0", PolicyName: IntegrityRating, Extension: "jar"},
+
+		// Legal
+		{Name: "com.itextpdf/bouncy-castle-connector", Version: "9.3.0", PolicyName: LicenseBanned, Extension: "jar"},
+		{Name: "javax.mail/mail", Version: "1.4.2", PolicyName: LicenseCopyLeft, Extension: "jar"},
+		{Name: "de.weltraumschaf/commons", Version: "0.4.0", PolicyName: LicenseNonStandard, Extension: "jar"},
 	}
 }
 
