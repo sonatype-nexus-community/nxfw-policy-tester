@@ -34,11 +34,15 @@ func (n GolangFormat) GetDisplayName() string {
 func (n GolangFormat) GetPackages() []Package {
 	return []Package{
 		// Security
+		{Name: "github.com/tmc/langchaingo", Version: "v0.1.6", PolicyName: SecurityCritical, Extension: "zip"},
 		{Name: "golang.org/x/crypto", Version: "v0.3.0", PolicyName: SecurityHigh, Extension: "zip"},
 		{Name: "github.com/hashicorp/yamux", Version: "v0.1.1", PolicyName: SecurityMedium, Extension: "zip"},
 
 		// Legal
-
+		{Name: "github.com/lcomrade/lenpaste", Version: "v1.3.1", PolicyName: LicenseBanned, Extension: "zip"},
+		{Name: "github.com/sonatype-nexus-community/nexus-repo-api-client-go/v3", Version: "v3.81.6", PolicyName: LicenseNone, Extension: "zip"},
+		{Name: "go.wit.com/lib/cobol", Version: "v0.0.29", PolicyName: LicenseCopyLeft, Extension: "zip"},
+		{Name: "github.com/unidoc/unipdf/v3", Version: "v3.69.0", PolicyName: LicenseNonStandard, Extension: "zip"},
 	}
 }
 

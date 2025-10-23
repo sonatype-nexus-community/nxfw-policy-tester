@@ -108,43 +108,43 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 
 ### CRAN (R)
 
-| Policy Type | Reference Policy               | Available            |
-| ----------- | ------------------------------ | -------------------- |
-| Legal       | `License-Banned`               | ❌                   |
-| Legal       | `License-None`                 | ❌                   |
-| Legal       | `License-Copyleft`             | ❌                   |
-| Legal       | `License-Commercial`           | ❌                   |
-| Legal       | `License-Threat Not Assigned`  | ❌                   |
-| Legal       | `License-AI-ML`                | N/A                  |
-| Legal       | `License-Non-Standard`         | ❌                   |
-| Legal       | `License-Weak-Copyleft`        | ❌                   |
-| Security    | `Security-Namespace Conflict`§ | ❌                   |
-| Security    | `Security-Malicious`           | ⛔️ No safe testdata |
-| Security    | `Integrity-Rating`             | ⛔️ No safe testdata |
-| Security    | `Security-Critical`            | ❌                   |
-| Security    | `Security-High`                | ✅                   |
-| Security    | `Security-Medium`              | ✅                   |
-| Security    | `Security-Low`                 | ❌                   |
+| Policy Type | Reference Policy              | Available            |
+| ----------- | ----------------------------- | -------------------- |
+| Legal       | `License-Banned`              | ❌                   |
+| Legal       | `License-None`                | ❌                   |
+| Legal       | `License-Copyleft`            | ❌                   |
+| Legal       | `License-Commercial`          | ❌                   |
+| Legal       | `License-Threat Not Assigned` | ❌                   |
+| Legal       | `License-AI-ML`               | N/A                  |
+| Legal       | `License-Non-Standard`        | ❌                   |
+| Legal       | `License-Weak-Copyleft`       | ❌                   |
+| Security    | `Security-Namespace Conflict` | ❌ §                 |
+| Security    | `Security-Malicious`          | ⛔️ No safe testdata |
+| Security    | `Integrity-Rating`            | ⛔️ No safe testdata |
+| Security    | `Security-Critical`           | ❌                   |
+| Security    | `Security-High`               | ✅                   |
+| Security    | `Security-Medium`             | ✅                   |
+| Security    | `Security-Low`                | ❌                   |
 
 ### Golang (Go)
 
-| Policy Type | Reference Policy               | Available            |
-| ----------- | ------------------------------ | -------------------- |
-| Legal       | `License-Banned`               | ❌                   |
-| Legal       | `License-None`                 | ❌                   |
-| Legal       | `License-Copyleft`             | ❌                   |
-| Legal       | `License-Commercial`           | ❌                   |
-| Legal       | `License-Threat Not Assigned`  | ❌                   |
-| Legal       | `License-AI-ML`                | N/A                  |
-| Legal       | `License-Non-Standard`         | ❌                   |
-| Legal       | `License-Weak-Copyleft`        | ❌                   |
-| Security    | `Security-Namespace Conflict`§ | ❌                   |
-| Security    | `Security-Malicious`           | ⛔️ No safe testdata |
-| Security    | `Integrity-Rating`             | ⛔️ No safe testdata |
-| Security    | `Security-Critical`            | ❌                   |
-| Security    | `Security-High`                | ✅                   |
-| Security    | `Security-Medium`              | ✅                   |
-| Security    | `Security-Low`                 | ❌                   |
+| Policy Type | Reference Policy              | Available            |
+| ----------- | ----------------------------- | -------------------- |
+| Legal       | `License-Banned`              | ✅                   |
+| Legal       | `License-None`                | ✅                   |
+| Legal       | `License-Copyleft`            | ✅                   |
+| Legal       | `License-Commercial`          | ❌                   |
+| Legal       | `License-Threat Not Assigned` | ❌                   |
+| Legal       | `License-AI-ML`               | N/A                  |
+| Legal       | `License-Non-Standard`        | ✅                   |
+| Legal       | `License-Weak-Copyleft`       | ❌                   |
+| Security    | `Security-Namespace Conflict` | ❌ §                 |
+| Security    | `Security-Malicious`          | ⛔️ No safe testdata |
+| Security    | `Integrity-Rating`            | ⛔️ No safe testdata |
+| Security    | `Security-Critical`           | ✅                   |
+| Security    | `Security-High`               | ✅                   |
+| Security    | `Security-Medium`             | ✅                   |
+| Security    | `Security-Low`                | ❌                   |
 
 ### Huggingface.co (AI / ML)
 
@@ -168,43 +168,43 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 
 ### Maven (Java)
 
-| Policy Type | Reference Policy               | Available |
-| ----------- | ------------------------------ | --------- |
-| Legal       | `License-Banned`               | ❌        |
-| Legal       | `License-None`                 | ❌        |
-| Legal       | `License-Copyleft`             | ❌        |
-| Legal       | `License-Commercial`           | ❌        |
-| Legal       | `License-Threat Not Assigned`  | ❌        |
-| Legal       | `License-AI-ML`                | N/A       |
-| Legal       | `License-Non-Standard`         | ❌        |
-| Legal       | `License-Weak-Copyleft`        | ❌        |
-| Security    | `Security-Namespace Conflict`§ | ❌        |
-| Security    | `Security-Malicious`^          | ✅        |
-| Security    | `Integrity-Rating`±            | ✅        |
-| Security    | `Security-Critical`            | ✅        |
-| Security    | `Security-High`                | ✅        |
-| Security    | `Security-Medium`              | ✅        |
-| Security    | `Security-Low`                 | ✅        |
+| Policy Type | Reference Policy              | Available |
+| ----------- | ----------------------------- | --------- |
+| Legal       | `License-Banned`              | ❌        |
+| Legal       | `License-None`                | ❌        |
+| Legal       | `License-Copyleft`            | ❌        |
+| Legal       | `License-Commercial`          | ❌        |
+| Legal       | `License-Threat Not Assigned` | ❌        |
+| Legal       | `License-AI-ML`               | N/A       |
+| Legal       | `License-Non-Standard`        | ❌        |
+| Legal       | `License-Weak-Copyleft`       | ❌        |
+| Security    | `Security-Namespace Conflict` | ❌ §      |
+| Security    | `Security-Malicious`^         | ✅        |
+| Security    | `Integrity-Rating`±           | ✅        |
+| Security    | `Security-Critical`           | ✅        |
+| Security    | `Security-High`               | ✅        |
+| Security    | `Security-Medium`             | ✅        |
+| Security    | `Security-Low`                | ✅        |
 
 ### NPM (Javascript / Typescript)
 
-| Policy Type | Reference Policy               | Available |
-| ----------- | ------------------------------ | --------- |
-| Legal       | `License-Banned`               | ✅        |
-| Legal       | `License-None`                 | ❌        |
-| Legal       | `License-Copyleft`             | ✅        |
-| Legal       | `License-Commercial`           | ❌        |
-| Legal       | `License-Threat Not Assigned`  | ❌        |
-| Legal       | `License-AI-ML`                | N/A       |
-| Legal       | `License-Non-Standard`         | ❌        |
-| Legal       | `License-Weak-Copyleft`        | ❌        |
-| Security    | `Security-Namespace Conflict`§ | ❌        |
-| Security    | `Security-Malicious`^          | ✅        |
-| Security    | `Integrity-Rating`±            | ✅        |
-| Security    | `Security-Critical`            | ✅        |
-| Security    | `Security-High`                | ✅        |
-| Security    | `Security-Medium`              | ✅        |
-| Security    | `Security-Low`                 | ✅        |
+| Policy Type | Reference Policy              | Available |
+| ----------- | ----------------------------- | --------- |
+| Legal       | `License-Banned`              | ✅        |
+| Legal       | `License-None`                | ❌        |
+| Legal       | `License-Copyleft`            | ✅        |
+| Legal       | `License-Commercial`          | ❌        |
+| Legal       | `License-Threat Not Assigned` | ❌        |
+| Legal       | `License-AI-ML`               | N/A       |
+| Legal       | `License-Non-Standard`        | ❌        |
+| Legal       | `License-Weak-Copyleft`       | ❌        |
+| Security    | `Security-Namespace Conflict` | ❌ §      |
+| Security    | `Security-Malicious`^         | ✅        |
+| Security    | `Integrity-Rating`±           | ✅        |
+| Security    | `Security-Critical`           | ✅        |
+| Security    | `Security-High`               | ✅        |
+| Security    | `Security-Medium`             | ✅        |
+| Security    | `Security-Low`                | ✅        |
 
 ### Nuget (.NET)
 
@@ -231,7 +231,7 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 | Policy Type | Reference Policy               | Available |
 | ----------- | ------------------------------ | --------- |
 | Legal       | `License-Banned`               | ✅        |
-| Legal       | `License-None`                 | ❌        |
+| Legal       | `License-None`                 | ✅        |
 | Legal       | `License-Copyleft`             | ✅        |
 | Legal       | `License-Commercial`           | ❌        |
 | Legal       | `License-Threat Not Assigned`  | ❌        |
