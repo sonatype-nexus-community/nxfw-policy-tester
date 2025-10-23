@@ -34,6 +34,7 @@ func (c CargoFormat) GetPackages() []Package {
 	return []Package{
 		{Name: "hyper", Version: "0.14.9", PolicyName: SecurityCritical},
 		{Name: "abi_stable", Version: "0.8.4", PolicyName: SecurityHigh},
+		// {Name: "hyper", Version: "0.14.9", PolicyName: SecurityMedium},
 	}
 }
 

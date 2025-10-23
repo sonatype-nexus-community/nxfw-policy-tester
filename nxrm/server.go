@@ -74,9 +74,12 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 		httpCode, err := c.DownloadPackageAtUrl(url)
 
 		result := formats.CheckResult{
-			Package:  pkg,
-			HTTPCode: httpCode,
-			Failed:   false,
+			Package:                       pkg,
+			HTTPCode:                      httpCode,
+			Available:                     false,
+			Failed:                        false,
+			Quarantined:                   false,
+			QuarantinedWithExpectedPolicy: false,
 		}
 
 		if err != nil {
@@ -89,7 +92,6 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 				),
 				util.ColorRed,
 			)
-			result.Available = false
 			result.Failed = true
 		} else if httpCode == http.StatusOK {
 			cli.PrintCliln(
@@ -112,8 +114,6 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 			if fwErr != nil {
 				cli.PrintCliln(fmt.Sprintf("Error checking Firewall Quarantine Status: %v", fwErr), util.ColorRed)
 			}
-
-			result.Available = false
 			result.Quarantined = quarantined
 			result.QuarantinedWithExpectedPolicy = policyTriggered
 

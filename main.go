@@ -85,12 +85,12 @@ func displayResults(results []formats.CheckResult, format formats.PackageFormat)
 		}
 	}
 
-	cli.PrintCliln("===================== Test Summary =====================", util.ColorYellow)
+	cli.PrintCliln("============================= Test Summary =============================", util.ColorYellow)
 	cli.PrintCliln(fmt.Sprintf("Downloadable:         %02d", availableCount), util.ColorGreen)
 	cli.PrintCliln(fmt.Sprintf("Quarantined:          %02d", quarantinedCount), util.ColorCyan)
 	cli.PrintCliln(fmt.Sprintf("Failure:              %02d", failedCount), util.ColorRed)
 
-	cli.PrintCliln("----------------------- Details ------------------------", util.ColorYellow)
+	cli.PrintCliln("------------------------------- Details --------------------------------", util.ColorYellow)
 	for _, result := range results {
 		color := result.Package.PolicyName.GetSecurityColor()
 		var status = "UNKNOWN"
@@ -102,6 +102,8 @@ func displayResults(results []formats.CheckResult, format formats.PackageFormat)
 			status = fmt.Sprintf("%sOOOPS%s", util.ColorRed, util.ColorReset)
 		} else if result.Failed {
 			status = fmt.Sprintf("%sFAILED%s", util.ColorRed, util.ColorReset)
+		} else {
+			println(fmt.Sprintf("Invalid Result? %v", result))
 		}
 
 		cli.PrintCliln(

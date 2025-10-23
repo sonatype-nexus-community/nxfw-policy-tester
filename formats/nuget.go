@@ -33,12 +33,17 @@ func (n NuGetFormat) GetDisplayName() string {
 }
 
 func (n NuGetFormat) GetPackages() []Package {
-	// Placeholder - packages will be provided later
 	return []Package{
+		// Security
 		{Name: "log4net", Version: "2.0.3", PolicyName: SecurityCritical},
 		{Name: "Newtonsoft.Json", Version: "6.0.4", PolicyName: SecurityHigh},
 		{Name: "Microsoft.Owin", Version: "2.1.0", PolicyName: SecurityMedium},
 		{Name: "Microsoft.AspNet.SignalR.Core", Version: "2.0.3", PolicyName: SecurityLow},
+
+		// License
+		{Name: "LigerShark.WebOptimizer.Core", Version: "3.0.344", PolicyName: LicenseNone},
+		{Name: "MySql.Data", Version: "8.0.27", PolicyName: LicenseCopyLeft},
+		{Name: "PayPalCheckoutSdk", Version: "1.0.3", PolicyName: LicenseCommercial},
 	}
 }
 
@@ -46,9 +51,7 @@ func (n NuGetFormat) ConstructURL(nexusURL, repoName string, pkg Package) string
 	// NuGet v3 API format in Nexus
 	// Format: /repository/{repo}/download/{package-id-lowercase}/{version}/{package-id-lowercase}.{version}.nupkg
 	// Example: /repository/nuget-proxy/download/log4net/2.0.3/log4net.2.0.3.nupkg
-
 	// /repository/nuget-proxy/v3/content/0/log4net/2.0.3/log4net.<version>.nupkg
-
 	// NuGet uses lowercase package IDs in the download URL
 	packageIDLower := strings.ToLower(pkg.Name)
 

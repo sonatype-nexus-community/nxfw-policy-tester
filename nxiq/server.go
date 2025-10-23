@@ -46,16 +46,21 @@ func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVers
 	for _, r := range fwResult.Results {
 		var coordinates = r.ComponentIdentifier.GetCoordinates()
 
-		packageId, ok := coordinates["packageId"]
-		if !ok {
-			continue
+		var packageName = ""
+		format := r.ComponentIdentifier.Format
+		switch *format {
+		case "cargo":
+			packageName = coordinates["name"]
+		default:
+			packageName = coordinates["packageId"]
 		}
+
 		version, ok := coordinates["version"]
 		if !ok {
 			continue
 		}
 
-		if packageId == componentName && version == componentVersion {
+		if packageName == componentName && version == componentVersion {
 			if r.Quarantined != nil && *r.Quarantined {
 				quarantined = true
 				if *r.PolicyName == expectedPolicy {

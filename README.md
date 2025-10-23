@@ -89,6 +89,7 @@ If you have customised or custom Policies, plesae consider this.
 | Legal       | `License-Banned`               | ❌                   |
 | Legal       | `License-None`                 | ❌                   |
 | Legal       | `License-Copyleft`             | ❌                   |
+| Legal       | `License-Commercial`           | ❌                   |
 | Legal       | `License-Threat Not Assigned`  | ❌                   |
 | Legal       | `License-AI-ML`                | N/A                  |
 | Legal       | `License-Non-Standard`         | ❌                   |
@@ -108,6 +109,7 @@ If you have customised or custom Policies, plesae consider this.
 | Legal       | `License-Banned`               | ❌                   |
 | Legal       | `License-None`                 | ❌                   |
 | Legal       | `License-Copyleft`             | ❌                   |
+| Legal       | `License-Commercial`           | ❌                   |
 | Legal       | `License-Threat Not Assigned`  | ❌                   |
 | Legal       | `License-AI-ML`                | N/A                  |
 | Legal       | `License-Non-Standard`         | ❌                   |
@@ -127,6 +129,7 @@ If you have customised or custom Policies, plesae consider this.
 | Legal       | `License-Banned`               | ❌                   |
 | Legal       | `License-None`                 | ❌                   |
 | Legal       | `License-Copyleft`             | ❌                   |
+| Legal       | `License-Commercial`           | ❌                   |
 | Legal       | `License-Threat Not Assigned`  | ❌                   |
 | Legal       | `License-AI-ML`                | N/A                  |
 | Legal       | `License-Non-Standard`         | ❌                   |
@@ -146,6 +149,7 @@ If you have customised or custom Policies, plesae consider this.
 | Legal       | `License-Banned`               | ✅        |
 | Legal       | `License-None`                 | ❌        |
 | Legal       | `License-Copyleft`             | ❌        |
+| Legal       | `License-Commercial`           | ❌        |
 | Legal       | `License-Threat Not Assigned`  | ❌        |
 | Legal       | `License-AI-ML`                | ❌        |
 | Legal       | `License-Non-Standard`         | ❌        |
@@ -165,6 +169,7 @@ If you have customised or custom Policies, plesae consider this.
 | Legal       | `License-Banned`               | ❌        |
 | Legal       | `License-None`                 | ❌        |
 | Legal       | `License-Copyleft`             | ❌        |
+| Legal       | `License-Commercial`           | ❌        |
 | Legal       | `License-Threat Not Assigned`  | ❌        |
 | Legal       | `License-AI-ML`                | N/A       |
 | Legal       | `License-Non-Standard`         | ❌        |
@@ -183,7 +188,8 @@ If you have customised or custom Policies, plesae consider this.
 | ----------- | ------------------------------ | --------- |
 | Legal       | `License-Banned`               | ✅        |
 | Legal       | `License-None`                 | ❌        |
-| Legal       | `License-Copyleft`             | ❌        |
+| Legal       | `License-Copyleft`             | ✅        |
+| Legal       | `License-Commercial`           | ❌        |
 | Legal       | `License-Threat Not Assigned`  | ❌        |
 | Legal       | `License-AI-ML`                | N/A       |
 | Legal       | `License-Non-Standard`         | ❌        |
@@ -201,8 +207,9 @@ If you have customised or custom Policies, plesae consider this.
 | Policy Type | Reference Policy               | Available            |
 | ----------- | ------------------------------ | -------------------- |
 | Legal       | `License-Banned`               | ❌                   |
-| Legal       | `License-None`                 | ❌                   |
-| Legal       | `License-Copyleft`             | ❌                   |
+| Legal       | `License-None`                 | ✅                   |
+| Legal       | `License-Copyleft`             | ✅                   |
+| Legal       | `License-Commercial`           | ✅                   |
 | Legal       | `License-Threat Not Assigned`  | ❌                   |
 | Legal       | `License-AI-ML`                | N/A                  |
 | Legal       | `License-Non-Standard`         | ❌                   |
@@ -222,6 +229,7 @@ If you have customised or custom Policies, plesae consider this.
 | Legal       | `License-Banned`               | ❌        |
 | Legal       | `License-None`                 | ❌        |
 | Legal       | `License-Copyleft`             | ❌        |
+| Legal       | `License-Commercial`           | ❌        |
 | Legal       | `License-Threat Not Assigned`  | ❌        |
 | Legal       | `License-AI-ML`                | N/A       |
 | Legal       | `License-Non-Standard`         | ❌        |
