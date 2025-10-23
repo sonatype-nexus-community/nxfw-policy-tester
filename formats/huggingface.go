@@ -42,6 +42,9 @@ func (h HuggingFaceFormat) GetPackages() []Package {
 
 		// Legal
 		{Name: "OuteAI/OuteTTS-0.2-500M-GGUF", Version: "ee3de04a4d6ca4b41d7f2598734636c08c82c713", PolicyName: LicenseBanned, Extension: "", Qualifier: "ee3de04a4d6ca4b41d7f2598734636c08c82c713:OuteTTS-0.2-500M-FP16.gguf"},
+		{Name: "cvetanovskaa/vit-base-patch16-224-in21k-gtsrb-tuned", Version: "320e872f74a86f0f546bbe60534086ca221160df", PolicyName: LicenseNone, Extension: "", Qualifier: "320e872f74a86f0f546bbe60534086ca221160df:model.safetensors"},
+		{Name: "Mustang/BERT_responsible_AI", Version: "3af744e85f7c0f08cf28337512c45500e2cfba9a", PolicyName: LicenseCopyLeft, Extension: "", Qualifier: "3af744e85f7c0f08cf28337512c45500e2cfba9a:pytorch_model.bin"},
+		{Name: "nazyrova/clinicalBERT", Version: "05ec011a7e7820d9abbdac1d14e5da93969bb9f7", PolicyName: LicenseNonStandard, Extension: "", Qualifier: "05ec011a7e7820d9abbdac1d14e5da93969bb9f7:pytorch_model.bin"},
 	}
 }
 

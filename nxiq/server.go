@@ -52,6 +52,8 @@ func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVers
 		switch *format {
 		case "cargo", "conda", "golang":
 			packageName = coordinates["name"]
+		case "hf-model":
+			packageName = coordinates["repo_id"]
 		case "pypi":
 			packageName = coordinates["name"]
 			packageName2 = strings.ReplaceAll(coordinates["name"], "-", "_")
