@@ -19,6 +19,7 @@ This tool expects the [Reference Policy Set](https://help.sonatype.com/en/refere
 
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Results](#results)
 - [Test Data Available](#test-data-available)
   - [Cargo (Rust)](#cargo-rust)
   - [Conda (conda-forge)](#conda-conda-forge)
@@ -53,6 +54,14 @@ And also your Sonatype IQ Server credentials in two environment variables:
 ```
 
 Follow the prompts - you'll need the URL to your Sonatype Nexus Repository installation (https:// only supported).
+
+### Results
+
+The results will be displayed in the terminal, with a summary at the end. There are four potential results per test for a given format:
+
+1. `AVAILABLE` - the package could be downloaded
+2. `QUARANTINED` - the package was blocked by Sonatype Repository Firewall as expected
+3. `FAILED` - the test failed to execute - investigation required
 
 ## Test Data Available
 

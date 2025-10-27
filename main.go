@@ -99,7 +99,7 @@ func displayResults(results []formats.CheckResult, format formats.PackageFormat)
 		} else if result.Quarantined && result.QuarantinedWithExpectedPolicy {
 			status = fmt.Sprintf("%sQUARANTINED%s", util.ColorCyan, util.ColorReset)
 		} else if result.Quarantined && !result.QuarantinedWithExpectedPolicy {
-			status = fmt.Sprintf("%sOOOPS%s", util.ColorRed, util.ColorReset)
+			status = fmt.Sprintf("%sQUARANTINED, but perhaps not by expected Reference Policy%s", util.ColorRed, util.ColorReset)
 		} else if result.Failed {
 			status = fmt.Sprintf("%sFAILED%s", util.ColorRed, util.ColorReset)
 		} else {
