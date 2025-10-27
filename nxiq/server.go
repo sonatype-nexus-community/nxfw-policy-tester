@@ -107,6 +107,9 @@ func (c *NxiqConnection) validateConnection() error {
 
 func NewNxiqConnection(nxiqUrl, username, password string) (*NxiqConnection, error) {
 	// Create API client configuration
+	if strings.HasSuffix(nxiqUrl, "/") {
+		nxiqUrl = strings.TrimSuffix(nxiqUrl, "/")
+	}
 	configuration := nxiq.NewConfiguration()
 	configuration.Servers = nxiq.ServerConfigurations{
 		{
