@@ -53,7 +53,7 @@ func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVers
 	for _, r := range fwResult.Results {
 		var coordinates = r.ComponentIdentifier.GetCoordinates()
 
-		var packageName, packageName2 = "", ""
+		var packageName, packageName2 string
 		format := r.ComponentIdentifier.Format
 		switch *format {
 		case "cargo", "conda", "golang":
@@ -110,7 +110,7 @@ func NewNxiqConnection(nxiqUrl, username, password string) (*NxiqConnection, err
 	configuration := nxiq.NewConfiguration()
 	configuration.Servers = nxiq.ServerConfigurations{
 		{
-			URL: nxiqUrl,
+			URL: strings.TrimSuffix(nxiqUrl, "/"),
 		},
 	}
 
