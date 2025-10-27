@@ -53,7 +53,7 @@ func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVers
 	for _, r := range fwResult.Results {
 		var coordinates = r.ComponentIdentifier.GetCoordinates()
 
-		var packageName, packageName2 = "", ""
+		var packageName, packageName2 string
 		format := r.ComponentIdentifier.Format
 		switch *format {
 		case "cargo", "conda", "golang":
@@ -107,13 +107,10 @@ func (c *NxiqConnection) validateConnection() error {
 
 func NewNxiqConnection(nxiqUrl, username, password string) (*NxiqConnection, error) {
 	// Create API client configuration
-	if strings.HasSuffix(nxiqUrl, "/") {
-		nxiqUrl = strings.TrimSuffix(nxiqUrl, "/")
-	}
 	configuration := nxiq.NewConfiguration()
 	configuration.Servers = nxiq.ServerConfigurations{
 		{
-			URL: nxiqUrl,
+			URL: strings.TrimSuffix(nxiqUrl, "/"),
 		},
 	}
 
