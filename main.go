@@ -33,6 +33,7 @@ var (
 		formats.CargoFormat{},
 		formats.CranFormat{},
 		formats.CondaFormat{},
+		formats.DockerFormat{},
 		formats.GolangFormat{},
 		formats.HuggingFaceFormat{},
 		formats.MavenFormat{},

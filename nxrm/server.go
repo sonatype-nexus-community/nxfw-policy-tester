@@ -19,7 +19,9 @@ package nxrm
 import (
 	"context"
 	"fmt"
+	"log"
 	"net/http"
+	"net/url"
 	"os"
 
 	v3 "github.com/sonatype-nexus-community/nexus-repo-api-client-go/v3"
@@ -57,6 +59,15 @@ func (c *NxrmConnection) validateConnection() error {
 func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFormat, nxiqConnection *nxiq.NxiqConnection) ([]formats.CheckResult, error) {
 	packages := format.GetPackages()
 	results := make([]formats.CheckResult, 0, len(packages))
+
+	// Parse the URL
+	repoDomainNameParts, err := url.Parse(c.baseUrl)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Get the domain (host)
+	repoDomainName := repoDomainNameParts.Host
 
 	cli.PrintCliln("\n=== Checking Package Availability ===\n", util.ColorYellow)
 
@@ -109,7 +120,7 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 				os.Exit(1)
 			}
 			quarantined, policyTriggered, fwErr := nxiqConnection.RetrieveFWQuarantineStatus(
-				pkg.Name, pkg.Version, repoName, string(pkg.PolicyName), format.GetName(),
+				pkg.Name, pkg.Version, repoName, string(pkg.PolicyName), format.GetName(), repoDomainName,
 			)
 			if fwErr != nil {
 				cli.PrintCliln(fmt.Sprintf("Error checking Firewall Quarantine Status: %v", fwErr), util.ColorRed)

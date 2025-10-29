@@ -33,7 +33,7 @@ type NxiqConnection struct {
 	ctx       *context.Context
 }
 
-func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVersion, repositoryName, expectedPolicy, format string) (bool, bool, error) {
+func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVersion, repositoryName, expectedPolicy, format, repoBaseUrl string) (bool, bool, error) {
 	// Workaround for Maven
 	if format == "maven2" {
 		componentNameParts := strings.Split(componentName, "/")
@@ -58,6 +58,12 @@ func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVers
 		switch *format {
 		case "cargo", "conda", "golang":
 			packageName = coordinates["name"]
+		case "docker":
+			// repo.phorton.eu.ngrok.io-dockerhub-proxy-sonatypecommunity-docker-policy-demo-Security-High
+			packageName = strings.ReplaceAll(
+				fmt.Sprintf("%s-%s-%s-%s", repoBaseUrl, repositoryName, componentName, componentVersion),
+				".", "-",
+			)
 		case "hf-model":
 			packageName = coordinates["repo_id"]
 		case "maven":
