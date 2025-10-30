@@ -70,9 +70,7 @@ func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVers
 				cli.PrintCliln(fmt.Sprintf("Details: %v", err), util.ColorRed)
 				return false, false, err
 			}
-			for _, r := range resp.Results {
-				allResults = append(allResults, r)
-			}
+			allResults = append(allResults, resp.Results...)
 			if page >= *resp.PageCount {
 				break
 			}
