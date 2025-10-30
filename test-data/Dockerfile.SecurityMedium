@@ -1,0 +1,3 @@
+FROM scratch
+
+COPY ./test-artefacts/ant-1.6.5.jar /ant-1.6.5.jar

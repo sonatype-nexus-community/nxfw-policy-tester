@@ -1,0 +1,3 @@
+FROM scratch
+
+COPY ./test-artefacts/spring-context-6.2.3.jar /spring-context-6.2.3.jar

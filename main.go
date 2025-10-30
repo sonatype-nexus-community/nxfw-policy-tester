@@ -33,6 +33,7 @@ var (
 		formats.CargoFormat{},
 		formats.CranFormat{},
 		formats.CondaFormat{},
+		formats.DockerFormat{},
 		formats.GolangFormat{},
 		formats.HuggingFaceFormat{},
 		formats.MavenFormat{},
@@ -85,12 +86,13 @@ func displayResults(results []formats.CheckResult, format formats.PackageFormat)
 		}
 	}
 
+	cli.PrintCliln("", util.ColorBlue)
 	cli.PrintCliln("============================= Test Summary =============================", util.ColorYellow)
 	cli.PrintCliln(fmt.Sprintf("Downloadable:         %02d", availableCount), util.ColorGreen)
 	cli.PrintCliln(fmt.Sprintf("Quarantined:          %02d", quarantinedCount), util.ColorCyan)
 	cli.PrintCliln(fmt.Sprintf("Failure:              %02d", failedCount), util.ColorRed)
 
-	cli.PrintCliln("------------------------------- Details --------------------------------", util.ColorYellow)
+	cli.PrintCliln("\n------------------------------- Details --------------------------------", util.ColorYellow)
 	for _, result := range results {
 		color := result.Package.PolicyName.GetSecurityColor()
 		var status = "UNKNOWN"
@@ -106,15 +108,28 @@ func displayResults(results []formats.CheckResult, format formats.PackageFormat)
 			println(fmt.Sprintf("Invalid Result? %v", result))
 		}
 
+		packageName := format.FormatPackageName(result.Package)
+		if len(packageName) > 35 {
+			packageName = packageName[len(packageName)-35:]
+		}
 		cli.PrintCliln(
 			fmt.Sprintf(
-				"%25s: %45s - %15s",
+				"%20s: %35s - %15s",
 				result.Package.PolicyName,
-				format.FormatPackageName(result.Package),
+				packageName,
 				status,
 			),
 			color,
 		)
+	}
+
+	if format.GetName() == "docker" {
+		cli.PrintCliln("", util.ColorGreen)
+		cli.PrintCliln(
+			"⚠️ WARNING ⚠️: This script cannot confirm which policy caused a Container Image to be Quarantined. Please validate manually.",
+			util.ColorYellow,
+		)
+		cli.PrintCliln("", util.ColorGreen)
 	}
 }
 

@@ -19,7 +19,9 @@ package nxrm
 import (
 	"context"
 	"fmt"
+	"log"
 	"net/http"
+	"net/url"
 	"os"
 
 	v3 "github.com/sonatype-nexus-community/nexus-repo-api-client-go/v3"
@@ -58,12 +60,21 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 	packages := format.GetPackages()
 	results := make([]formats.CheckResult, 0, len(packages))
 
-	cli.PrintCliln("\n=== Checking Package Availability ===\n", util.ColorYellow)
+	// Parse the URL
+	repoDomainNameParts, err := url.Parse(c.baseUrl)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Get the domain (host)
+	repoDomainName := repoDomainNameParts.Host
+
+	cli.PrintCliln("============           Checking Package Availability            ========\n", util.ColorYellow)
 
 	for _, pkg := range packages {
 		color := pkg.PolicyName.GetSecurityColor()
 		cli.PrintCliln(
-			fmt.Sprintf("Checking %s %s[%s]%s...\n",
+			fmt.Sprintf("Checking %s %s[%s]%s...",
 				format.FormatPackageName(pkg),
 				color,
 				pkg.PolicyName, util.ColorReset),
@@ -85,7 +96,7 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 		if err != nil {
 			cli.PrintCliln(
 				fmt.Sprintf(
-					"✗ Error attempting download: %s [%s] (Error: %v)\n",
+					"✗ Error attempting download: %s [%s] (Error: %v)",
 					format.FormatPackageName(pkg),
 					pkg.PolicyName,
 					err,
@@ -96,7 +107,7 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 		} else if httpCode == http.StatusOK {
 			cli.PrintCliln(
 				fmt.Sprintf(
-					"✓ Package available: %s [%s]\n\n",
+					"✓ Package available: %s [%s]",
 					format.FormatPackageName(pkg),
 					pkg.PolicyName,
 				),
@@ -109,7 +120,7 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 				os.Exit(1)
 			}
 			quarantined, policyTriggered, fwErr := nxiqConnection.RetrieveFWQuarantineStatus(
-				pkg.Name, pkg.Version, repoName, string(pkg.PolicyName), format.GetName(),
+				pkg.Name, pkg.Version, repoName, string(pkg.PolicyName), format.GetName(), repoDomainName,
 			)
 			if fwErr != nil {
 				cli.PrintCliln(fmt.Sprintf("Error checking Firewall Quarantine Status: %v", fwErr), util.ColorRed)
@@ -119,7 +130,7 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 
 			cli.PrintCliln(
 				fmt.Sprintf(
-					"✗ Package Quarrantined and NOT available: %s [%s]\n\n",
+					"✗ Package Quarrantined and NOT available: %s [%s]",
 					format.FormatPackageName(pkg),
 					pkg.PolicyName,
 				),
@@ -128,7 +139,7 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 		} else {
 			cli.PrintCliln(
 				fmt.Sprintf(
-					"✗ Package NOT available: %s [%s] (response code %d)\n\n",
+					"✗ Package NOT available: %s [%s] (response code %d)",
 					format.FormatPackageName(pkg),
 					pkg.PolicyName,
 					httpCode,
