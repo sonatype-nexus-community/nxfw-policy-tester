@@ -2,5 +2,9 @@ github.com/sonatype-nexus-community/nexus-iq-api-client-go v0.195.1 h1:1xGUQVC4H
 github.com/sonatype-nexus-community/nexus-iq-api-client-go v0.195.1/go.mod h1:l4BJPA4QzKv93upbfyG8UeWf5XQ22Q/lgoCb9yoB2KE=
 github.com/sonatype-nexus-community/nexus-iq-api-client-go v0.196.0 h1:1SU9m9vF9ZsAZIQ5MCcu5hrLmT6lhUwNaXYHEa6ySWo=
 github.com/sonatype-nexus-community/nexus-iq-api-client-go v0.196.0/go.mod h1:l4BJPA4QzKv93upbfyG8UeWf5XQ22Q/lgoCb9yoB2KE=
+github.com/sonatype-nexus-community/nexus-iq-api-client-go v0.196.3 h1:W/LfwFuSvRPUr0z7B5wbKSjEgTmtL427KCA1Y1Be3Ok=
+github.com/sonatype-nexus-community/nexus-iq-api-client-go v0.196.3/go.mod h1:l4BJPA4QzKv93upbfyG8UeWf5XQ22Q/lgoCb9yoB2KE=
+github.com/sonatype-nexus-community/nexus-iq-api-client-go v0.196.4 h1:nwP5MtQN+qj2GxD8J47qhOxrzvTZyd8acOdBuDBs1EY=
+github.com/sonatype-nexus-community/nexus-iq-api-client-go v0.196.4/go.mod h1:l4BJPA4QzKv93upbfyG8UeWf5XQ22Q/lgoCb9yoB2KE=
 github.com/sonatype-nexus-community/nexus-repo-api-client-go/v3 v3.84.1 h1:OOgbJSa6UIya5dSvJ51yO86j4rZzZvkFTOEiQA7L2Zg=
 github.com/sonatype-nexus-community/nexus-repo-api-client-go/v3 v3.84.1/go.mod h1:aflMwOI/XkRO3HuXgCVlh+zPFj9KVkDtE1ZwWqJeCm0=

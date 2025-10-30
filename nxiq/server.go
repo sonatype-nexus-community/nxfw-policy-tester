@@ -34,10 +34,61 @@ type NxiqConnection struct {
 }
 
 func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVersion, repositoryName, expectedPolicy, format, repoBaseUrl string) (bool, bool, error) {
+	originalComponentName := componentName
+	originalComponentVersion := componentVersion
+
 	// Workaround for Maven
-	if format == "maven2" {
+	switch format {
+	case "maven2":
 		componentNameParts := strings.Split(componentName, "/")
 		componentName = componentNameParts[1]
+	case "docker":
+		componentName = fmt.Sprintf(
+			"%s-%s",
+			repoBaseUrl,
+			fmt.Sprintf(
+				"%s-%s-%s",
+				repositoryName,
+				componentName,
+				componentVersion,
+			),
+		)
+	}
+
+	if format == "docker" {
+		modifiedComponentName := strings.ReplaceAll(strings.ReplaceAll(originalComponentName, "/", "-"), ".", "-")
+		repositoryNameModified := strings.ReplaceAll(repositoryName, ".", "-")
+		componentVersionModified := strings.ReplaceAll(originalComponentVersion, ".", "-")
+		expectedId := fmt.Sprintf("%s-%s-%s-%s", repoBaseUrl, repositoryNameModified, modifiedComponentName, componentVersionModified)
+
+		var allResults []nxiq.ContainerImageInQuarantineData
+		page := int64(1)
+		for {
+			resp, apiResponse, err := c.apiClient.FirewallAPI.GetContainerImagesInQuarantine(*c.ctx).Page(int32(page)).PageSize(100).Execute()
+			if err != nil || apiResponse.StatusCode != http.StatusOK {
+				cli.PrintCliln("Error: Failed to query Sonatype Repository Firewall Container Quarantine List. Please check your credentials and URL.", util.ColorRed)
+				cli.PrintCliln(fmt.Sprintf("Details: %v", err), util.ColorRed)
+				return false, false, err
+			}
+			for _, r := range resp.Results {
+				allResults = append(allResults, r)
+			}
+			if page >= *resp.PageCount {
+				break
+			}
+			page++
+		}
+
+		quarantined := false
+		for _, r := range allResults {
+			// ApplicationPublicId == repo.hostname.tld-dockerhub-proxy-sonatypecommunity-docker-policy-demo-Integrity-Pending
+			if *r.ApplicationPublicId == expectedId {
+				quarantined = true
+				break
+			}
+		}
+
+		return quarantined, false, nil
 	}
 
 	fwResult, apiResponse, err := c.apiClient.FirewallAPI.GetQuarantineList(*c.ctx).ComponentName(componentName).RepositoryPublicId((repositoryName)).Execute()
@@ -58,12 +109,6 @@ func (c *NxiqConnection) RetrieveFWQuarantineStatus(componentName, componentVers
 		switch *format {
 		case "cargo", "conda", "golang":
 			packageName = coordinates["name"]
-		case "docker":
-			// repo.phorton.eu.ngrok.io-dockerhub-proxy-sonatypecommunity-docker-policy-demo-Security-High
-			packageName = strings.ReplaceAll(
-				fmt.Sprintf("%s-%s-%s-%s", repoBaseUrl, repositoryName, componentName, componentVersion),
-				".", "-",
-			)
 		case "hf-model":
 			packageName = coordinates["repo_id"]
 		case "maven":

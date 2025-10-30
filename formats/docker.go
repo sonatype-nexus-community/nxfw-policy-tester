@@ -39,8 +39,8 @@ func (m DockerFormat) GetPackages() []Package {
 		{Name: "sonatypecommunity/docker-policy-demo", Version: "Security-Medium", PolicyName: SecurityMedium, Extension: ""},
 		{Name: "sonatypecommunity/docker-policy-demo", Version: "Security-Low", PolicyName: SecurityLow, Extension: ""},
 		{Name: "sonatypecommunity/docker-policy-demo", Version: "Security-Malicious", PolicyName: SecurityMalicious, Extension: ""},
-		// {Name: "sonatypecommunity/docker-policy-demo", Version: "Integrity-Suspicious", PolicyName: IntegrityRating, Extension: ""},
-		// {Name: "sonatypecommunity/docker-policy-demo", Version: "Integrity-Pending", PolicyName: IntegrityRating, Extension: ""},
+		{Name: "sonatypecommunity/docker-policy-demo", Version: "Integrity-Suspicious", PolicyName: IntegrityRating, Extension: ""},
+		{Name: "sonatypecommunity/docker-policy-demo", Version: "Integrity-Pending", PolicyName: IntegrityRating, Extension: ""},
 
 		// Legal
 	}
