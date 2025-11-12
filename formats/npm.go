@@ -47,6 +47,9 @@ func (n NPMFormat) GetPackages() []Package {
 		// Legal
 		{Name: "ramda", Version: "0.27.2", PolicyName: LicenseBanned, Extension: "tgz"},
 		{Name: "adm-zip", Version: "0.4.11", PolicyName: LicenseCopyLeft, Extension: "tgz"},
+
+		// None
+		{Name: "@jridgewell/set-array", Version: "1.2.1", PolicyName: None, Extension: "tgz"},
 	}
 }
 

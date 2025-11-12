@@ -13,7 +13,7 @@ This is a simple test suite that will attempt to pull known _bad_ packages into 
 to allow customers to validate that Repository Firewall policies are operating as they expect.
 
 This tool does not know the specific outcomes, as each Customer will have differing [Policy Actions](https://help.sonatype.com/en/policy-actions.html)
-set.
+set and Open Source ages like Milk, not Wine - so be aware that the test data contained within this tool may age and no longer trigger the policies expected.
 
 This tool expects the [Reference Policy Set](https://help.sonatype.com/en/reference-policies.html) to be in use, but that is not mandatory.
 
@@ -42,12 +42,12 @@ Obtain the binary for your Operating System and Architecture from the [GitHub Re
 Set your Sonatype Nexus Repository credentials in two environment variables:
 
 -   `NXRM_USERNAME`
--   `NXRM_PASSWORD`  
+-   `NXRM_PASSWORD`
 
 And also your Sonatype IQ Server credentials in two environment variables:
 
 -   `NXIQ_USERNAME`
--   `NXIQ_PASSWORD`  
+-   `NXIQ_PASSWORD`
 
 ```bash
 ./nxfw-policy-tester
@@ -97,6 +97,7 @@ If you have customised or custom Policies, plesae consider this.
 | Security    | `Security-High`               | ✅                   |
 | Security    | `Security-Medium`             | ✅                   |
 | Security    | `Security-Low`                | ❌                   |
+| None        | `None`                        | ✅                   |
 
 ### Conda (conda-forge)
 
@@ -119,6 +120,7 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 | Security    | `Security-High`               | ✅                   |
 | Security    | `Security-Medium`             | ❌                   |
 | Security    | `Security-Low`                | ✅                   |
+| None        | `None`                        | ❌ ~                 |
 
 ### CRAN (R)
 
@@ -139,6 +141,7 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 | Security    | `Security-High`               | ✅                   |
 | Security    | `Security-Medium`             | ✅                   |
 | Security    | `Security-Low`                | ❌                   |
+| None        | `None`                        | ❌ ~                 |
 
 ### Golang (Go)
 
@@ -159,6 +162,7 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 | Security    | `Security-High`               | ✅                   |
 | Security    | `Security-Medium`             | ✅                   |
 | Security    | `Security-Low`                | ❌                   |
+| None        | `None`                        | ✅                   |
 
 ### Huggingface.co (AI / ML)
 
@@ -179,6 +183,7 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 | Security    | `Security-High`               | ❌        |
 | Security    | `Security-Medium`             | ❌        |
 | Security    | `Security-Low`                | ❌        |
+| None        | `None`                        | ❌        |
 
 ### Maven (Java)
 
@@ -199,6 +204,7 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 | Security    | `Security-High`               | ✅        |
 | Security    | `Security-Medium`             | ✅        |
 | Security    | `Security-Low`                | ✅        |
+| None        | `None`                        | ✅        |
 
 ### NPM (Javascript / Typescript)
 
@@ -219,6 +225,7 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 | Security    | `Security-High`               | ✅        |
 | Security    | `Security-Medium`             | ✅        |
 | Security    | `Security-Low`                | ✅        |
+| None        | `None`                        | ✅        |
 
 ### Nuget (.NET)
 
@@ -239,6 +246,7 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 | Security    | `Security-High`                | ✅                   |
 | Security    | `Security-Medium`              | ✅                   |
 | Security    | `Security-Low`                 | ✅                   |
+| None        | `None`                         | ✅                   |
 
 ### PyPi (Python)
 
@@ -259,6 +267,7 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 | Security    | `Security-High`                | ✅        |
 | Security    | `Security-Medium`              | ✅        |
 | Security    | `Security-Low`                 | ✅        |
+| None        | `None`                         | ✅        |
 
 ## Development
 

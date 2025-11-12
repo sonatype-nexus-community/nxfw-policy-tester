@@ -41,6 +41,9 @@ func (c CargoFormat) GetPackages() []Package {
 		{Name: "meadow-dsp-agpl", Version: "0.1.0", PolicyName: LicenseBanned},
 		{Name: "cargo-dtc", Version: "1.7.6", PolicyName: LicenseCopyLeft},
 		{Name: "fuchsia-cprng", Version: "0.1.1", PolicyName: LicenseNonStandard},
+
+		// None
+		{Name: "byteorder", Version: "1.4.3", PolicyName: None},
 	}
 }
 

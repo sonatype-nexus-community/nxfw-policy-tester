@@ -47,6 +47,9 @@ func (m MavenFormat) GetPackages() []Package {
 		{Name: "com.itextpdf/bouncy-castle-connector", Version: "9.3.0", PolicyName: LicenseBanned, Extension: "jar"},
 		{Name: "javax.mail/mail", Version: "1.4.2", PolicyName: LicenseCopyLeft, Extension: "jar"},
 		{Name: "de.weltraumschaf/commons", Version: "0.4.0", PolicyName: LicenseNonStandard, Extension: "jar"},
+
+		// None
+		{Name: "com.ethlo.time/itu", Version: "1.10.2", PolicyName: None, Extension: "jar"},
 	}
 }
 

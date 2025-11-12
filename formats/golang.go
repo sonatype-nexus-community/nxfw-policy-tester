@@ -43,6 +43,9 @@ func (n GolangFormat) GetPackages() []Package {
 		{Name: "github.com/sonatype-nexus-community/nexus-repo-api-client-go/v3", Version: "v3.81.6", PolicyName: LicenseNone, Extension: "zip"},
 		{Name: "go.wit.com/lib/cobol", Version: "v0.0.29", PolicyName: LicenseCopyLeft, Extension: "zip"},
 		{Name: "github.com/unidoc/unipdf/v3", Version: "v3.69.0", PolicyName: LicenseNonStandard, Extension: "zip"},
+
+		// None
+		{Name: "golang.org/x/crypto", Version: "v0.42.0", PolicyName: None, Extension: "zip"},
 	}
 }
 

@@ -36,6 +36,7 @@ const (
 	LicenseCommercial        PolicyName = "License-Commercial"
 	LicenseNonStandard       PolicyName = "License-Non Standard"
 	LicenseWeakCopyleft      PolicyName = "License-Modified Weak Copyleft"
+	None                     PolicyName = "None"
 )
 
 func (p PolicyName) GetSecurityColor() string {
@@ -46,6 +47,8 @@ func (p PolicyName) GetSecurityColor() string {
 		return util.ColorMagenta
 	case LicenseNonStandard, LicenseWeakCopyleft, SecurityMedium:
 		return util.ColorYellow
+	case None:
+		return util.ColorGreen
 	default:
 		return util.ColorReset
 	}

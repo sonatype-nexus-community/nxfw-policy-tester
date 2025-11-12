@@ -40,7 +40,6 @@ func (c CondaFormat) GetPackages() []Package {
 		{Name: "gettext", Version: "0.21.1", PolicyName: SecurityLow, Extension: "tar.bz2", Qualifier: "main/linux-64/h27087fc_0"},
 
 		// License
-		//
 		{Name: "glmnet", Version: "2.2.1", PolicyName: LicenseCopyLeft, Extension: "conda", Qualifier: "main/linux-64/py310h31179b7_6"},
 	}
 }

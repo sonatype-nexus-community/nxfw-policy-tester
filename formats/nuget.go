@@ -44,6 +44,9 @@ func (n NuGetFormat) GetPackages() []Package {
 		{Name: "LigerShark.WebOptimizer.Core", Version: "3.0.344", PolicyName: LicenseNone},
 		{Name: "MySql.Data", Version: "8.0.27", PolicyName: LicenseCopyLeft},
 		{Name: "PayPalCheckoutSdk", Version: "1.0.3", PolicyName: LicenseCommercial},
+
+		// None
+		{Name: "Microsoft.AspNetCore.Mvc.NewtonsoftJson", Version: "5.0.3", PolicyName: None},
 	}
 }
 
