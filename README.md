@@ -24,6 +24,7 @@ This tool expects the [Reference Policy Set](https://help.sonatype.com/en/refere
   - [Cargo (Rust)](#cargo-rust)
   - [Conda (conda-forge)](#conda-conda-forge)
   - [CRAN (R)](#cran-r)
+  - [Docker (Container)](#docker-container)
   - [Golang (Go)](#golang-go)
   - [Huggingface.co (AI / ML)](#huggingfaceco-ai--ml)
   - [Maven (Java)](#maven-java)
@@ -142,6 +143,26 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 | Security    | `Security-Medium`             | ✅                   |
 | Security    | `Security-Low`                | ❌                   |
 | None        | `None`                        | ❌ ~                 |
+
+### Docker (Container)
+
+| Policy Type | Reference Policy              | Available |
+| ----------- | ----------------------------- | --------- |
+| Legal       | `License-Banned`              | ❌ ~      |
+| Legal       | `License-None`                | ❌ ~      |
+| Legal       | `License-Copyleft`            | ❌ ~      |
+| Legal       | `License-Commercial`          | ❌ ~      |
+| Legal       | `License-Threat Not Assigned` | ❌ ~      |
+| Legal       | `License-AI-ML`               | N/A       |
+| Legal       | `License-Non-Standard`        | ❌ ~      |
+| Legal       | `License-Weak-Copyleft`       | ❌ ~      |
+| Security    | `Security-Namespace Conflict` | ❌ §      |
+| Security    | `Security-Malicious`          | ✅        |
+| Security    | `Integrity-Rating`            | ✅        |
+| Security    | `Security-Critical`           | ✅        |
+| Security    | `Security-High`               | ✅        |
+| Security    | `Security-Medium`             | ✅        |
+| Security    | `Security-Low`                | ✅        |
 
 ### Golang (Go)
 
