@@ -63,7 +63,7 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 	for _, pkg := range packages {
 		color := pkg.PolicyName.GetSecurityColor()
 		cli.PrintCliln(
-			fmt.Sprintf("Checking %s %s[%s]%s...\n",
+			fmt.Sprintf("Checking %s %s[%s]%s...",
 				format.FormatPackageName(pkg),
 				color,
 				pkg.PolicyName, util.ColorReset),
@@ -85,7 +85,7 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 		if err != nil {
 			cli.PrintCliln(
 				fmt.Sprintf(
-					"✗ Error attempting download: %s [%s] (Error: %v)\n",
+					"✗ Error attempting download: %s [%s] (Error: %v)",
 					format.FormatPackageName(pkg),
 					pkg.PolicyName,
 					err,
@@ -96,7 +96,7 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 		} else if httpCode == http.StatusOK {
 			cli.PrintCliln(
 				fmt.Sprintf(
-					"✓ Package available: %s [%s]\n\n",
+					"✓ Package available: %s [%s]",
 					format.FormatPackageName(pkg),
 					pkg.PolicyName,
 				),
@@ -119,7 +119,7 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 
 			cli.PrintCliln(
 				fmt.Sprintf(
-					"✗ Package Quarrantined and NOT available: %s [%s]\n\n",
+					"✗ Package Quarrantined and NOT available: %s [%s]",
 					format.FormatPackageName(pkg),
 					pkg.PolicyName,
 				),
@@ -128,7 +128,7 @@ func (c *NxrmConnection) CheckPackages(repoName string, format formats.PackageFo
 		} else {
 			cli.PrintCliln(
 				fmt.Sprintf(
-					"✗ Package NOT available: %s [%s] (response code %d)\n\n",
+					"✗ Package NOT available: %s [%s] (response code %d)",
 					format.FormatPackageName(pkg),
 					pkg.PolicyName,
 					httpCode,
