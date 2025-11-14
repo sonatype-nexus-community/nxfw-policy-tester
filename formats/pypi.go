@@ -47,10 +47,10 @@ func (p PyPIFormat) GetPackages() []Package {
 		{Name: "nltk", Version: "3.9.2", PolicyName: LicenseBanned, Extension: "whl", Qualifier: "py3-none-any"},
 		{Name: "gallery_dl", Version: "1.29.0", PolicyName: LicenseCopyLeft, Extension: "whl", Qualifier: "py3-none-any"},
 		{Name: "dawdaw", Version: "0.1.2", PolicyName: LicenseNonStandard, Extension: "whl", Qualifier: "py2.py3-none-any"},
-		{Name: "pypi-project-no-license", Version: "0.elp1.1", PolicyName: LicenseNone, Extension: "tar.gz", Qualifier: ""},
+		{Name: "pypi-project-no-license", Version: "0.1.1", PolicyName: LicenseNone, Extension: "tar.gz", Qualifier: ""},
 
 		// None
-		{Name: "google-cloud-vision", Version: "3.5.0", PolicyName: None, Extension: "whl", Qualifier: "py2.py3-none-any"},
+		{Name: "google-cloud-vision", Version: "3.5.0", PolicyName: None, Extension: "tar.gz", Qualifier: ""},
 	}
 }
 
