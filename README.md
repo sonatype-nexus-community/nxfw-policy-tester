@@ -120,7 +120,7 @@ _Conda Forge typically keeps only the last fix version for each minor release._
 | Security    | `Security-Critical`           | ✅                   |
 | Security    | `Security-High`               | ✅                   |
 | Security    | `Security-Medium`             | ❌                   |
-| Security    | `Security-Low`                | ✅                   |
+| Security    | `Security-Low`                | ❌                   |
 | None        | `None`                        | ❌ ~                 |
 
 ### CRAN (R)
